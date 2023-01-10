@@ -1,11 +1,17 @@
 # Plan2Park
 
 ## To start 
-`npm run dev`
+```
+npm run dev
+```
 
 ## To stop
-`ctrl + C`
+```
+ctrl + C
+```
 
 ## To update dependencies 
-`ncu -u`
-`npm install`
+```
+ncu -u
+npm install
+```
