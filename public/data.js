@@ -1,10 +1,10 @@
-$(document).ready(function(){  
+jQuery(function(){  
     alert('application started');  
-  
-    getdata();  
-  
-    $('.addbtn').click(function(){  
-         const task = $("#task").val();  
+    
+    getdata(); 
+    
+    $(document).on('click','.addbtn',function(){  
+        const task = $("#task").val();  
        $.ajax({  
            url:'/task/addtask',  
            method:'post',  
@@ -24,6 +24,7 @@ $(document).ready(function(){
            }  
        });  
     });  
+
     $(document).on('click','button.del',function(){  
         const id = $(this).parent().find('button.del').val(); 
         $.ajax({  
@@ -57,7 +58,7 @@ $(document).ready(function(){
                      }else{  
                         $('.tblData').show();  
                      $.each(response.data,function(index,data){  
-                         const url = url+data._id;  
+                         var url = url+data._id;  
                          index+=1;  
             $('tbody').append("<tr class='taskrow'><td>"+ index +"</td><td>"+data.task+"</td><td>"+"<button class='del' value='"+data._id+"'>delete</button>"+"</td></tr>");   
                      });  
