@@ -1,6 +1,5 @@
 jQuery(function(){  
-    alert('application started');  
-    
+
     getdata(); 
     
     $(document).on('click','.addbtn',function(){  
