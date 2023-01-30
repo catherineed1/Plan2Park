@@ -1,11 +1,11 @@
 body,h1,h2,h3,h4,h5,h6 {
   font-family: "Raleway", sans-serif;
-  margin-top: 100px;
+  
 }
 
 .navbar{
   position: fixed;
-  top: 0;
+  top: 0px;
   width: 100%;
   background-color: #ffffff;
   padding-top: 15px; 
@@ -15,12 +15,17 @@ body,h1,h2,h3,h4,h5,h6 {
 }
 
 .content{
+  margin: 100px;
   padding-left: 100px;
   padding-right: 100px;
 }
 
 footer{
   text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .card-img-top{
@@ -41,4 +46,3 @@ footer{
   background-color: rgb(237, 232, 232);
   color: black;
 }
-
