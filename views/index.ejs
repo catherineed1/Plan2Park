@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Plan2Park</title>
+        <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <link href="/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="/styling/css/style.css">
@@ -12,71 +13,67 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="#">
-                <img src="/styling/images/logo1.png" width="30" height="40"
-                    class="d-inline-block align-top" alt="">
-                 Can we get the bill?
-            </a>
-        </nav><br>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="home">
+          <img src="/styling/images/plan2park1.png" width="150" height="37" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Services
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="carParkBooking">Car Park Booking</a>
+                <a class="dropdown-item" href="carPooling">Car Pooling</a>
+                <a class="dropdown-item" href="publicTransportMap">Public Transport Routing</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
         <div class="content">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
                   <div class="card h-100">
-                    <img src="/styling/images/bingo2.jpeg" class="card-img-top"/>
+                    <img src="/styling/images/pins.png" class="card-img-top"/>
                     <div class="card-body">
-                      <h5 class="card-title">Bingo Service</h5>
-                      <a href="#" class="btn btn-primary">Go to there</a>
+                      <a href="publicTransportMap" class="btn" id="ptrBtn">Public Transport Route</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100"> 
+                    <img src="/styling/images/spaces.png" class="card-img-top"/>
+                    <div class="card-body">
+                      <a href="carParkBooking" class="btn" id="bookingBtn">Car Parking</a>
                     </div>
                   </div>
                 </div>
                 <div class="col">
                   <div class="card h-100">
-                    <img src="/styling/images/bandit2.png" class="card-img-top" />
+                    <img src="/styling/images/car.png" class="card-img-top"/>
                     <div class="card-body">
-                      <h5 class="card-title">Bandit Service</h5>
-                      <a href="#" class="btn btn-primary">Go to there</a>
+                      <a href="carPooling" class="btn" id="poolBtn">Car Pooling</a>
                     </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card h-100">
-                    <img src="/styling/images/chilli1.jpeg" class="card-img-top"/>
-                    <div class="card-body">
-                      <h5 class="card-title">Chilli Service</h5>
-                      <a href="#" class="btn btn-primary">Go to there</a>
-                    </div>
-                  </div>
-                </div>
-              </div><br>
-    
-            <div class="card text-center">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                </ul>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            </div>
-        </div>
-       
+              </div>
+        </div><br>
 
         <footer>Footer goes here</footer>
 
-        <script src="/data.js"></script>
+        <script src="/home.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>

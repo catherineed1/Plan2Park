@@ -26,11 +26,11 @@ app.use(express.static(path.join(__dirname+'/public')));
   
 //default page load  
 app.get('/',(req,res)=>{  
-  res.redirect('/task/home');  
+  res.redirect('/plan2park/home');  
 });  
   
 //routes  
-app.use('/task',require('./routes/taskroute'));  
+app.use('/plan2park',require('./routes/pageRouter'));  
   
 //assign port  
 const PORT  = process.env.PORT || 8080;  

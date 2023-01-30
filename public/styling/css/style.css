@@ -1,4 +1,18 @@
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body,h1,h2,h3,h4,h5,h6 {
+  font-family: "Raleway", sans-serif;
+  margin-top: 100px;
+}
+
+.navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  padding-top: 15px; 
+  border-bottom: .25px 
+  solid #939393;
+  overflow: hidden;
+}
 
 .content{
   padding-left: 100px;
@@ -11,8 +25,20 @@ footer{
 
 .card-img-top{
   align-self: center;
-  width: 100px;
+  width: 95px;
   height: 100px;
-}
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+} 
 
+.card-body{
+  align-self: center;
+} 
+
+.btn{
+  background-color: rgb(237, 232, 232);
+  color: black;
+}
 
