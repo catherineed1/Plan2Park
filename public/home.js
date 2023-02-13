@@ -9,7 +9,7 @@ jQuery(function() {
     });
 
     $("#poolBtn").on("click", function() {
-        //alert('Chilli!');
+
     });
 });
 

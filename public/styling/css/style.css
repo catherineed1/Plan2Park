@@ -1,17 +1,16 @@
+/* General CSS  */
 body,h1,h2,h3,h4,h5,h6 {
   font-family: "Raleway", sans-serif;
-  
+  color: #4b4b4b;
+  /* overflow: hidden; */
+  /* padding-top: 2px; */
 }
 
 .navbar{
-  position: fixed;
-  top: 0px;
   width: 100%;
   background-color: #ffffff;
-  padding-top: 15px; 
   border-bottom: .25px 
   solid #939393;
-  overflow: hidden;
 }
 
 .content{
@@ -22,7 +21,6 @@ body,h1,h2,h3,h4,h5,h6 {
 
 footer{
   text-align: center;
-  color: black;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -43,7 +41,44 @@ footer{
   align-self: center;
 } 
 
-.btn{
-  background-color: rgb(237, 232, 232);
-  color: black;
+#ptrBtn, #bookingBtn, #poolBtn, #registerCar, #joinCar{
+  background-color:rgb(242, 244, 244);
 }
+
+/* index CSS */
+.welcome{
+  text-align: center;
+}
+
+/* car pooling CSS */
+#car-join, #car-register{
+  background-color: rgb(242, 244, 244);
+  padding-top: 20px;
+}
+
+#carPoolingOptions{
+  width: 25rem;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+} 
+
+#DateTimeOut, #DateTimeReturn{
+  color: #706f6f;
+}
+/* car park booking CSS */
+
+/* public transport CSS */
+
+
+
+
+
+
+
+
+
+
+
+
+
