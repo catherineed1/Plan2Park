@@ -1,5 +1,5 @@
 const express    = require('express');  
-const taskModel  = require('../models/task');  
+const carPoolModel  = require('../models/car-pool-register');  
   
 const router = express.Router();  
   
@@ -21,6 +21,19 @@ router.get('/carParkBooking',(req,res)=>{
 
 router.get('/account',(req,res)=>{  
     res.render('account/account');  
+});  
+
+router.post('/addCarPool',(req,res)=>{  
+    const carPool = new carPoolModel({  
+        carPool:req.body.task  
+    });  
+    carPoolModel.addCarPool(carPool,(err,formData)=>{  
+        if(err){  
+            res.json({msg:'error'});  
+        }else{  
+            res.json({msg:'success'});  
+        }  
+    });  
 });  
 
 module.exports = router; 

@@ -5,7 +5,7 @@ const path        = require('path');
 const $           = require('jquery');  
   
 //connect to db  
-mongoose.connect('mongodb+srv://cdaly:210301Cathy@cluster0.otm70ca.mongodb.net/?retryWrites=true&w=majority',{useNewUrlParser:true})  
+mongoose.connect('mongodb+srv://cdaly:210301Cathy@cluster0.otm70ca.mongodb.net/plan2park?retryWrites=true&w=majority',{useNewUrlParser:true})  
     .then(()=>console.log('✅ Successfully connected to DB'))  
     .catch((err)=>console.log('❌ DB connection error',err))  
   
@@ -31,6 +31,7 @@ app.get('/',(req,res)=>{
   
 //routes  
 app.use('/plan2park',require('./routes/pageRouter'));  
+app.use('/',require('./routes/pageRouter'));  
   
 //assign port  
 const PORT  = process.env.PORT || 8080;  

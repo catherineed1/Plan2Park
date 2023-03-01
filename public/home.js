@@ -8,8 +8,8 @@ jQuery(function() {
        //alert('Bandit!');
     });
 
-    $("#poolBtn").on("click", function() {
-
+    $("#test").on("click", function() {
+        console.log('here');
     });
 });
 
