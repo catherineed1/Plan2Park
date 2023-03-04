@@ -3,35 +3,30 @@ const mongoose = require('mongoose');
 const carPoolSchema = new mongoose.Schema({
     pickupLoc: String,
     vehicle: String,
-    noOfPassenegers: Number,
+    noOfPassenegers: String,
     dateOut: {
-        type: Date,
-        default: Date.now,
+        type: Date
     },
     dateIn: {
-        type: Date,
-        default: Date.now,
+        type: Date
     },
 });
-
 const carPoolModel = module.exports = mongoose.model('car-pool-register', carPoolSchema);
 
-module.exports.addCarPool = (carPoolSchema, cb) => {
-    carPoolSchema.save((err, formData) => {
+module.exports.addCarPool = (cb, err, carPoolData) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, carPoolData);
+        };
+}
+
+module.exports.getCarPool = (cb) => {
+    carPoolModel.find((err, formData) => {
         if (err) {
             cb(err, null);
         } else {
             cb(null, formData);
-        }
-    });
-}
-
-module.exports.getTask = (cb) => {
-    carPoolModel.find((err, taskData) => {
-        if (err) {
-            cb(err, null);
-        } else {
-            cb(null, taskData);
         }
     });
 }

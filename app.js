@@ -7,7 +7,9 @@ const $           = require('jquery');
 //connect to db  
 mongoose.connect('mongodb+srv://cdaly:210301Cathy@cluster0.otm70ca.mongodb.net/plan2park?retryWrites=true&w=majority',{useNewUrlParser:true})  
     .then(()=>console.log('✅ Successfully connected to DB'))  
-    .catch((err)=>console.log('❌ DB connection error',err))  
+    .catch((err)=>console.log('❌ DB connection error',err));
+    
+mongoose.set('strictQuery', true);
   
 //init app  
 const app = express();  

@@ -24,16 +24,27 @@ router.get('/account',(req,res)=>{
 });  
 
 router.post('/addCarPool',(req,res)=>{  
-    const carPool = new carPoolModel({  
-        carPool:req.body.task  
-    });  
-    carPoolModel.addCarPool(carPool,(err,formData)=>{  
-        if(err){  
-            res.json({msg:'error'});  
-        }else{  
-            res.json({msg:'success'});  
-        }  
-    });  
+    const carPoolData = new carPoolModel(req.body);
+    carPoolData.save();
+    carPoolModel.addCarPool((err, carPoolData)=>{
+        if(err){
+            res.json({msg:'error'});
+        }
+        else{
+            res.json({msg:'success', data:carPoolData});
+        }
+    });
 });  
+
+
+router.get('/getCarPool',(req,res)=>{  
+    carPoolModel.getCarPool((err,formData)=>{  
+            if(err){  
+                res.json({msg:'error'});  
+            }else{  
+                res.json({msg:'success',data:formData});  
+            }  
+    });  
+  });  
 
 module.exports = router; 
