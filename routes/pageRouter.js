@@ -31,7 +31,7 @@ router.post('/addCarPool',(req,res)=>{
             res.json({msg:'error'});
         }
         else{
-            res.json({msg:'success', data:carPoolData});
+            res.json({data:carPoolData});
         }
     });
 });  
@@ -42,7 +42,7 @@ router.get('/getCarPool',(req,res)=>{
             if(err){  
                 res.json({msg:'error'});  
             }else{  
-                res.json({msg:'success',data:formData});  
+                res.json({data:formData});  
             }  
     });  
   });  

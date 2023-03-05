@@ -54,6 +54,7 @@ footer{
 #car-join, #car-register{
   background-color: rgb(242, 244, 244);
   padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 #carPoolingOptions{
@@ -66,6 +67,16 @@ footer{
 #DateTimeOut, #DateTimeReturn{
   color: #706f6f;
 }
+
+td{
+  display: inline-table;
+}
+
+th, td, tr{
+  padding: 4px 4px 4px 4px;
+}
+
+
 /* car park booking CSS */
 
 /* public transport CSS */
