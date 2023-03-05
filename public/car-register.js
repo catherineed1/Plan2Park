@@ -14,15 +14,15 @@ jQuery(function () {
         $.ajax({
             method: 'get',
             url: '/getCarPool',
-            dataType: 'html',
+            dataType: 'json',
             success: function (response) {
-                console.log(response);
-                $("#car-join").html(response); 
+                console.log(response.pickupLoc);
+                $("#car-join").append(response.pickupLoc); 
             }
         });
     });
 
-    $('#car-pooling-register').on('click', function () {
+    $('#car-register-submit').on('click', function () {
         const formData = {
             pickupLoc: $("#chooseLocation").val(),
             vehicle: $("#chooseVehicle").val(),
@@ -43,12 +43,12 @@ jQuery(function () {
                 } else {
                     alert('some error occurred try again');
                 }
-                $('#car-pooling-register-form')[0].reset();
+                $('#car-register-form')[0].reset();
             },
             error: function (response) {
                 console.log(response);
                 alert('server error occured')
-                $('#car-pooling-register-form')[0].reset();
+                $('#car-register-form')[0].reset();
             }
         });
         $('#car-register').hide();
