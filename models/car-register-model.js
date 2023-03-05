@@ -30,13 +30,3 @@ module.exports.getCarPool = (cb) => {
         }
     });
 }
-
-module.exports.removeTask = (id, cb) => {
-    taskModel.deleteOne({ '_id': id }, (err, taskData) => {
-        if (err) {
-            cb(err, null);
-        } else {
-            cb(null, taskData);
-        }
-    });
-}  
