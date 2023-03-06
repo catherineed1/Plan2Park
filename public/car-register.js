@@ -24,11 +24,34 @@ jQuery(function () {
                         var json = JSON.parse(response);
                         var count = json.data;
         
-                        $('#car-join').append('<table> <tr><th>Location:</th><th>Vehicle:</th><th>Passengers:</th><th>Date In:</th><th>Date Out:</th></tr>');
+                        $('#car-join').append('<table class="table table-hover" id="joinTable">\
+                        <thead>\
+                          <tr>\
+                            <th scope="col">Location</th>\
+                            <th scope="col">Vehicle</th>\
+                            <th scope="col">Passenger</th>\
+                            <th scope="col">Date In</th>\
+                            <th scope="col">Date Out</th>\
+                            <th scope="col"></th>\
+                          </tr>\
+                        </thead>\
+                        <tbody>\
+                        </tbody>\
+                      </table>');
                         $.each(count, function(index, value){
                             console.log(value);
-                            console.log(json.data[index].pickupLoc);
-                            $('#car-join').append('<tr><td>', json.data[index].pickupLoc, '</td><td>', json.data[index].vehicle, '</td><td>', json.data[index].noOfPassenegers, '</td><td>', json.data[index].dateIn, '</td><td>', json.data[index].dateOut,'</td></tr></table>');
+                            var location = json.data[index].pickupLoc;
+                            var vehicle = json.data[index].vehicle;
+                            var passengers = json.data[index].noOfPassenegers;
+                            var dateIn = json.data[index].dateIn;
+                            var dateOut = json.data[index].dateOut;
+                            $('tbody').append('<tr><td scope="row">'+location +'</td>\
+                            <td>'+vehicle+'</td>\
+                            <td>'+passengers+'</td>\
+                            <td>'+dateIn+'</td>\
+                            <td>'+dateOut+'</td>\
+                            <td><button id="joinBtn" type="button" class="btn btn-primary">Join</button>\
+                            </td></tr>');
                         });
                     }
                 });

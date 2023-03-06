@@ -1,5 +1,5 @@
 /* General CSS  */
-body,h1,h2,h3,h4,h5,h6 {
+body,h1,h2,h3,h4,h5,h6{
   font-family: "Raleway", sans-serif;
   color: #4b4b4b;
   /* overflow: hidden; */
@@ -51,7 +51,7 @@ footer{
 }
 
 /* car pooling CSS */
-#car-join, #car-register{
+#car-register{
   background-color: rgb(242, 244, 244);
   padding-top: 20px;
   padding-bottom: 10px;
@@ -68,13 +68,6 @@ footer{
   color: #706f6f;
 }
 
-td{
-  display: inline-table;
-}
-
-th, td, tr{
-  padding: 4px 4px 4px 4px;
-}
 
 
 /* car park booking CSS */
