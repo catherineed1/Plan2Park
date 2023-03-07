@@ -1,16 +1,29 @@
 const mongoose = require('mongoose');
+const mongooseDateFormat = require('mongoose-date-format');
 
 const carPoolSchema = new mongoose.Schema({
-    pickupLoc: String,
-    vehicle: String,
-    noOfPassenegers: String,
+    pickupLoc: {
+        type: String,
+        required: true
+    },
+    vehicle: {
+        type: String,
+        required: true
+    },
+    noOfPassenegers: {
+        type: String,
+        required: true
+    },
     dateOut: {
-        type: Date
+        type: Date,
+        required: true
     },
     dateIn: {
-        type: Date
+        type: Date,
+        required: true
     },
 });
+carPoolSchema.plugin(mongooseDateFormat);
 const carPoolModel = module.exports = mongoose.model('car-pool-register', carPoolSchema);
 
 module.exports.addCarPool = (cb, err, carPoolData) => {
