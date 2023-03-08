@@ -7,7 +7,6 @@ jQuery(function () {
         $('#car-join').hide();
     });
 
-
     $('#joinCar').on('click', function () {
         $('#car-register').hide();
         $('#car-join').toggle(function(){
