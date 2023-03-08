@@ -1,5 +1,6 @@
 const express    = require('express');  
 const carPoolModel  = require('../models/car-register-model');  
+const userModel  = require('../models/caccount-model');  
   
 const router = express.Router();  
   
@@ -36,9 +37,31 @@ router.post('/addCarPool',(req,res)=>{
     });
 });  
 
-
 router.get('/getCarPool',(req,res)=>{  
     carPoolModel.getCarPool((err,formData)=>{  
+            if(err){  
+                res.json({msg:'error'});  
+            }else{  
+                res.json({data:formData});  
+            }  
+    });  
+  });  
+
+router.post('/addUser',(req,res)=>{  
+    const userData = new userModel(req.body);
+    userData.save();
+    userData.addUser((err, userData)=>{
+        if(err){
+            res.json({msg:'error'});
+        }
+        else{
+            res.json({data:userData});
+        }
+    });
+  });  
+
+router.get('/getUser',(req,res)=>{  
+    userModel.getUser((err,formData)=>{  
             if(err){  
                 res.json({msg:'error'});  
             }else{  
