@@ -7,69 +7,66 @@
     <title>Plan2Park</title>
     <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/styling/css/style.css">
     <script src="/jquery/jquery.js"></script>
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="home">
-            <img src="/styling/images/plan2park1.png" width="150" height="37" alt="">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="home">
+      <img src="/styling/images/plan2park1.png" width="150" height="37" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="create-account"> Create Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="account">Account</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Services
           </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="account">Account</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Services
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="carParkBooking">Car Park Booking</a>
-                <a class="dropdown-item" href="carPooling">Car Pooling</a>
-                <a class="dropdown-item" href="publicTransportMap">Public Transport Routing</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="carParkBooking">Car Park Booking</a>
+            <a class="dropdown-item" href="carPooling">Car Pooling</a>
+            <a class="dropdown-item" href="publicTransportMap">Public Transport Routing</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
       <div class="content">
         <div class="container">
           <div class="row">
             <div class="col-sm" id="UserName">
               <img src="../styling/images/user.png" style="display:inline-block" alt="Avatar" class="avatar">
-              <h3 style="display:inline-block"> &nbsp; [Name]</h3>
-            </div>
-            <div class="col-sm">
-
+              <h4 style="display:inline-block" id="currentUser"></h4>
             </div>
             <div class="col-sm" id="credits" style="display:inline-block">
               <img class="tokenIcon" style="display:inline-block" src="../styling/images/token.png">
-              <h4 style="display:inline-block"> &nbsp; Credits</h4> 
+              <p id="creditText" style="display:inline-block">&nbsp;Credits</p> 
             </div>
+          </div>
+          
+          <div class="row" id="retrieveUser">
+
           </div>
 
           <div class="row" id="infoCol">
-            <div class="col-sm">
-              <h6>Change Password</h6>
-              <h6>Change Email</h6>
-            </div>
             <div class="col-sm text-center">
-              <p>Available Vehicles</p>
               <div class="card text-center" id="usersVehicles">
-
               </div>
             </div>
             <div class="col-sm text-center">
-              <p>Available Locations</p>
               <div class="card text-center" id="usersLoc">
-            
               </div>
             </div>
           </div>

@@ -7,12 +7,23 @@ const userAccountSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    pickupLoc: [{
-        nickname: {
+    fullName: {
+        type: String
+    },
+    address: [{
+        line1: {
             type: String,
             required: true
         },
-        address: {
+        line2: {
+            type: String,
+            required: true
+        },
+        town: {
+            type: String,
+            required: true
+        },
+        postcode: {
             type: String,
             required: true
         }
@@ -30,7 +41,7 @@ const userAccountSchema = new mongoose.Schema({
 });
 const userAccountlModel = module.exports = mongoose.model('user-account', userAccountSchema);
 
-module.exports.addUser = (cb, err, userData) => {
+module.exports.createAccount = (cb, err, userData) => {
         if (err) {
             cb(err, null);
         } else {
@@ -39,11 +50,11 @@ module.exports.addUser = (cb, err, userData) => {
 }
 
 module.exports.getUser = (cb) => {
-    userAccountlModel.find((err, formData) => {
+    userAccountlModel.find((err, userData) => {
         if (err) {
             cb(err, null);
         } else {
-            cb(null, formData);
+            cb(null, userData);
         }
     });
 }
