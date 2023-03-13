@@ -2,8 +2,6 @@
 body,h1,h2,h3,h4,h5,h6{
   font-family: "Raleway", sans-serif;
   color: #4b4b4b;
-  /* overflow: hidden; */
-  /* padding-top: 2px; */
 }
 
 .navbar{
@@ -43,6 +41,48 @@ footer{
 
 #ptrBtn, #bookingBtn, #poolBtn, #registerCar, #joinCar{
   background-color:rgb(242, 244, 244);
+}
+
+/* login CSS */
+#login {
+  width: 400px;
+  background-color: #ffffff;
+  box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+  margin: 100px auto;
+  padding-bottom: 20px;
+}
+#loginH {
+  text-align: center;
+  color: #5b6574;
+  font-size: 24px;
+  padding: 20px 0 20px 0;
+  border-bottom: 1px solid #dee0e4;
+}
+#loginForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+#loginLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  color: black;
+}
+#username, #password {
+  width: 310px;
+  height: 50px;
+  border: 1px solid #dee0e4;
+  margin-bottom: 20px;
+  padding: 0 15px;
+}
+
+#loginBtn{
+  width: 100px;
+  height: 40px;
 }
 
 /* index CSS */
@@ -112,8 +152,6 @@ footer{
 h5{
   color: #4b4b4b;
 }
-
-
 
 
 
