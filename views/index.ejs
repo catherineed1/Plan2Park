@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styling/css/style.css">
-    <script src="/jquery/jquery.js"></script>
   </head>
 
   <body>
@@ -45,7 +44,7 @@
         <div class="col">
           <div class="card h-100">
             <img src="/styling/images/pins.png" class="card-img-top" />
-            <div class="card-body">
+            <div class="card-body" id="start-card">
               <a href="publicTransportMap" class="btn" id="ptrBtn">Public Transport Route</a>
             </div>
           </div>
@@ -53,7 +52,7 @@
         <div class="col">
           <div class="card h-100">
             <img src="/styling/images/spaces.png" class="card-img-top" />
-            <div class="card-body">
+            <div class="card-body" id="start-card">
               <a href="carParkBooking" class="btn" id="bookingBtn">Car Parking</a>
             </div>
           </div>
@@ -61,7 +60,7 @@
         <div class="col">
           <div class="card h-100">
             <img src="/styling/images/car.png" class="card-img-top" />
-            <div class="card-body">
+            <div class="card-body" id="start-card">
               <a href="carPooling" class="btn" id="poolBtn">Car Pooling</a>
             </div>
           </div>
@@ -69,39 +68,21 @@
       </div>
     </div>
 
-
     <footer class="text-center text-lg-start" style="background-color: #ffffff">
       <div class="container p-2 pb-0">
         <hr class="my-2">
-
-        <section class="p-3 pt-0">
           <div class="row d-flex align-items-center">
-            <div class="col-md-7 col-lg-8 text-center text-md-start">
+            <div class="col-md col-lg text-center">
               <div class="p-3">
                 © 2023 Copyright:
                 <a class=" " href="">Plan2Park</a>
               </div>
-             
-            </div>
-           
-            <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-              
-              <a class="btn btn-outline-light btn-floating m-1" class=" " role="button"><i
-                  class="fab fa-facebook-f"></i>btn1</a>
-             
-              <a class="btn btn-outline-light btn-floating m-1" class=" " role="button"><i
-                  class="fab fa-twitter"></i>btn2</a>
-
-              <a class="btn btn-outline-light btn-floating m-1" class=" " role="button"><i
-                  class="fab fa-google"></i>btn3</a>
-
-              <a class="btn btn-outline-light btn-floating m-1" class=" " role="button"><i
-                  class="fab fa-instagram"></i>btn4</a>
             </div>
           </div>
         </section>
       </div>
     </footer>
+
 
     <script src="/home.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

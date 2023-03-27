@@ -7,7 +7,6 @@ jQuery(function () {
         $('#car-join').hide();
     });
 
-
     $('#joinCar').on('click', function () {
         $('#car-register').hide();
         $('#car-join').toggle(function(){
@@ -23,7 +22,6 @@ jQuery(function () {
                     success: function (response) {
                         var json = JSON.parse(response);
                         var count = json.data;
-        
                         $('#car-join').append('<table class="table table-hover" id="joinTable">\
                         <thead>\
                           <tr>\
@@ -77,16 +75,11 @@ jQuery(function () {
             url: '/addCarPool',
             dataType: 'json',
             success: function (response) {
-                if (response.msg == 'success') {
-                    console.log('car added successfully');
-                } else {
-                    alert('some error occurred try again');
-                }
+                console.log('car added successfully');
                 $('#car-register-form')[0].reset();
             },
             error: function (response) {
-                console.log(response);
-                alert('server error occured')
+                console.log('server error occured ', response);
                 $('#car-register-form')[0].reset();
             }
         });
