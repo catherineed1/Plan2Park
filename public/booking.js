@@ -1,6 +1,6 @@
 jQuery(function () {
 
     $('rect').on('click', function () {
-        alert('here');
+        console.log($(this).attr('id'));
     });
 });

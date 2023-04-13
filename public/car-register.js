@@ -3,7 +3,12 @@ jQuery(function () {
     $('#car-join').hide();
 
     $('#registerCar').on('click', function () {
-        $('#car-register').toggle();
+        $('#car-register').toggle(function (){
+            if($('#car-join').hasClass('new card text-center')){
+                $('#car-join').attr('class', 'card text-center');
+                $('#car-join').empty();
+            }
+        });
         $('#car-join').hide();
     });
 
