@@ -90,12 +90,21 @@ footer{
   text-align: center;
 }
 
+#spaceBooking{
+  width: 120%;
+}
+
 /* car pooling CSS */
 #car-register{
   background-color: rgb(242, 244, 244);
   padding-top: 20px;
   padding-bottom: 10px;
 }
+
+#car-join{
+  margin-top: 20px;
+}
+
 
 #carPoolingOptions{
   width: 25rem;
@@ -147,4 +156,8 @@ footer{
 .signup{
   font-size: smaller;
   color: #706f6f;
+}
+
+#bold{
+  font-weight: bold;
 }
