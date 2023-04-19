@@ -9,35 +9,7 @@ const userAccountSchema = new mongoose.Schema({
     },
     fullName: {
         type: String
-    },
-    address: [{
-        line1: {
-            type: String,
-            required: true
-        },
-        line2: {
-            type: String,
-            required: true
-        },
-        town: {
-            type: String,
-            required: true
-        },
-        postcode: {
-            type: String,
-            required: true
-        }
-    }],
-    vehicle: [{
-        nickname: {
-            type: String,
-            required: true
-        },
-        registration: {
-            type: String,
-            required: true
-        }
-    }]
+    }
 });
 const userAccountlModel = module.exports = mongoose.model('user-account', userAccountSchema);
 
@@ -58,3 +30,5 @@ module.exports.getUser = (cb) => {
         }
     });
 }
+
+

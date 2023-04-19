@@ -7,6 +7,7 @@
     <title>Plan2Park</title>
     <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="/styling/css/style.css">
 </head>
 
@@ -59,10 +60,101 @@
           <div class="row" id="infoCol">
             <div class="col-sm text-center">
               <div class="card text-center" id="usersVehicles">
-              </div>
+                  <div class="card-body" id="AddNewCar">
+                    <form>
+                      <div class="form-group">
+                        <label id="bold">Your Vehicles</label>
+                      </div>
+      
+                      <div class="form-group">
+                        <div class="form-check">
+                          <i id="new-car-check" class="fas fa-plus"></i>
+                          <label class="form-check-label" for="new-car-check">Add new</label>
+                        </div>
+                      </div>
+      
+                    <div class="form-group" id="newCar">
+                      <div class="form-row">
+                        <div class="form-group col-md-5">
+                          <label id="bold" for="car-make">Make of Car: </label>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="text" id="car-make">
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-5">
+                          <label id="bold" for="car-colour">Colour: </label>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="text" id="car-colour">
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-5">
+                          <label id="bold" for="car-registration">Registration: </label>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="text" id="car-registration">
+                        </div>
+                      </div>
+                      <button id="new-car" type="button" class="btn btn-primary">Add</button>
+                    </div>
+                    
+                  </form>
+                  </div>
+                </div>
             </div>
+
             <div class="col-sm text-center">
               <div class="card text-center" id="usersLoc">
+                <div class="card-body" id="AddNewLoc">
+                  <form>
+                    <div class="form-group">
+                      <label id="bold">Your Locations</label>
+                    </div>
+    
+                    <div class="form-group">
+                      <div class="form-check">
+                        <i id="new-loc-check" class="fas fa-plus"></i>
+                        <label class="form-check-label" for="new-loc-check">Add new</label>
+                      </div>
+                    </div>
+    
+                  <div class="form-group" id="newLoc">
+                    <div class="form-row">
+                      <div class="form-group col-md-7">
+                        <label id="bold" for="loc-name">Nickname: </label>
+                      </div>
+                      <div class="form-group col-md-5">
+                        <input type="text" id="loc-name">
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-7">
+                        <label id="bold" for="addressLine1">Number and Street Name: </label>
+                      </div>
+                      <div class="form-group col-md-5">
+                        <input type="text" id="addressLine1">
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-7">
+                        <label id="bold" for="postcode">Postcode: </label>
+                      </div>
+                      <div class="form-group col-md-5">
+                        <input type="text" id="postcode">
+                      </div>
+                    </div>
+                    <button id="new-loc" type="button" class="btn btn-primary">Add</button>
+                  </div>
+                 
+                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -84,9 +176,9 @@
         </div>
         </footer>
 
-        <script src="/account.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script> 
+        <script src="/account.js"></script>
     </body>
 
 </html>

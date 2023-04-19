@@ -55,37 +55,37 @@ router.get('/getCarPool',(req,res)=>{
     });  
   });  
 
-  router.post('/createAccount',(req,res)=>{ 
-    let keys = Object.keys(req.body);
-    console.log(req.body[keys[0]]);
+router.post('/createAccount',(req,res)=>{ 
+let keys = Object.keys(req.body);
+console.log(req.body[keys[0]]);
 
-    const user = {
-        username: req.body[keys[0]],
-        password: req.body[keys[1]],
-        fullName: req.body[keys[2]],
-        address:[{
-            line1: req.body[keys[3]],
-            line2: req.body[keys[4]],
-            town: req.body[keys[5]],
-            postcode: req.body[keys[6]],
-        }],
-        vehicle:[{
-            nickname: req.body[keys[7]],
-            registration: req.body[keys[8]]
-        }]
+const user = {
+    username: req.body[keys[0]],
+    password: req.body[keys[1]],
+    fullName: req.body[keys[2]],
+    // address:[{
+    //     line1: req.body[keys[3]],
+    //     line2: req.body[keys[4]],
+    //     town: req.body[keys[5]],
+    //     postcode: req.body[keys[6]],
+    // }],
+    // vehicle:[{
+    //     nickname: req.body[keys[7]],
+    //     registration: req.body[keys[8]]
+    // }]
+}
+console.log(user);
+const userData = new userModel(user);
+
+userData.save();
+userModel.createAccount((err, userData)=>{
+    if(err){
+        res.json({msg:'error'});
     }
-    console.log(user);
-    const userData = new userModel(user);
-
-    userData.save();
-    userModel.createAccount((err, userData)=>{
-        if(err){
-            res.json({msg:'error'});
-        }
-        else{
-            res.json({data:userData});
-        }
-    });
+    else{
+        res.json({data:userData});
+    }
+});
 });  
 
 router.get('/getUser',(req,res)=>{  
