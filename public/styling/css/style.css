@@ -58,7 +58,7 @@ footer{
   padding: 20px 0 20px 0;
   border-bottom: 1px solid #dee0e4;
 }
-#loginForm {
+#loginForm, #createAccountForm {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -72,7 +72,7 @@ footer{
   height: 50px;
   color: black;
 }
-#username, #password {
+#email, #password, #fullname {
   width: 310px;
   height: 50px;
   border: 1px solid #dee0e4;

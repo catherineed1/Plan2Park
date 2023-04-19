@@ -1,133 +1,67 @@
 <!doctype html>
 <html lang="en">
 
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Plan2Park</title>
     <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="/styling/css/style.css">
-</head>
+  </head>
 
-<body style="background-color: #eaeaea;">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="home">
-          <img src="/styling/images/plan2park1.png" width="150" height="37" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="account">Account</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Services
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="carParkBooking">Car Park Booking</a>
-                <a class="dropdown-item" href="carPooling">Car Pooling</a>
-                <a class="dropdown-item" href="publicTransportMap">Public Transport Routing</a>
-              </div>
-            </li>
-          </ul>
+  <body style="background-color: #eaeaea;">
+    <nav class="navbar fixed-top navbar-light">
+      <a class="navbar-brand">
+        <img src="/styling/images/plan2park1.png" width="150" height="37">
+      </a>
+    </nav>
+
+    <div class="content">
+      <div class="row">
+        <div class="col">
+			<div class="card" id="login" style="align-items: center;">
+				<h1 id="loginH">Create Account</h1>
+				<form action="/auth" method="post" id="createAccountForm">
+          <label id="loginLabel" for="fullname">
+						<i class="fas fa-user"></i>
+					</label>
+					<input type="text" name="fullname" placeholder="Full Name" id="fullname" required>
+					<label id="loginLabel" for="email">
+						<i class="fas fa-envelope"></i>
+					</label>
+					<input type="text" name="email" placeholder="Email" id="email" required>
+					<label id="loginLabel" for="password">
+						<i class="fas fa-lock"></i>
+					</label>
+					<input type="password" name="password" placeholder="Password" id="password" required>
+          <button class="btn btn-primary" id="createAccountBtn">Create</button>
+				</form><br>
+        <a href="login">Back to Login</a>
+			</div>
         </div>
-      </nav>
+      </div>
+    </div>
 
-      <div class="content">
-          <div class="card text-center" id="account">
-            <div class="card-body">
-                <form class="account-form" id="account-form">
-                <div class="form-row">
-                  <h3>Create Account</h3>
-                </div>
-                <hr class="my-2">
-                <div class="form-row">
-                 <h5>Personal Details</h5><br>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <label class="signup" for="inputEmail">Email</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label class="signup" for="inputName">Full name</label>
-                    <input type="text" class="form-control" id="inputName" placeholder="Full Name">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label class="signup" for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                  </div>
-                </div>
-
-                <div class="form-row">
-                  <h5>Address Details</h5><br>
-                </div>
-                
-                <div class="form-row">
-                <div class="form-group col-md-9" id="address">
-                  <label class="signup" for="inputAddress">Address</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-                <div class="form-group col-md-9">
-                  <label class="signup" for="inputAddress2">Address 2</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                </div>
+    <footer class="text-center text-lg-start" style="background-color: #ffffff">
+      <div class="container p-2 pb-0">
+        <hr class="my-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-md col-lg text-center">
+              <div class="p-3">
+                © 2023 Copyright:
+                <a class=" " href="">Plan2Park</a>
               </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label class="signup" for="inputTown">Town</label>
-                    <input type="text" class="form-control" id="inputTown">
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label class="signup" for="inputPostcode">Postcode</label>
-                    <input type="text" class="form-control" id="inputPostcode">
-                  </div>
-                </div>
-
-                <div class="form-row">
-                  <h5>Car Details</h5><br>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label class="signup" for="inputCarReg">Car Registration</label>
-                    <input type="text" class="form-control" id="inputCarReg" placeholder="Car Registration">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label class="signup" for="inputNameCar">Car Nickname</label>
-                    <input type="text" class="form-control" id="inputNameCar" placeholder="Car Nickname">
-                  </div>
-                </div>
-                <button id="submitAccount" type="button" class="btn btn-primary">Create Account</button>
-              </form>
             </div>
           </div>
+        </section>
+      </div>
+    </footer>
 
-      <footer class="text-center text-lg-start" style="background-color: #ffffff">
-        <div class="container p-2 pb-0">
-          <hr class="my-2">
-            <div class="row d-flex align-items-center">
-              <div class="col-md col-lg text-center">
-                <div class="p-3">
-                  © 2023 Copyright:
-                  <a class=" " href="">Plan2Park</a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-        </footer>
-
-        <script src="/createaccount.js"></script>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="/createaccount.js"></script>
+  </body>
 
 </html>

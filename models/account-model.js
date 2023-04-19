@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const userAccountSchema = new mongoose.Schema({
+    fullName: {
+        type: String
+    },
     username: {
         type: String
     },
     password: {
-        type: String
-    },
-    fullName: {
         type: String
     }
 });
@@ -19,6 +19,14 @@ module.exports.createAccount = (cb, err, userData) => {
         } else {
             cb(null, userData);
         };
+}
+
+module.exports.findUserExists = (cb, err, loginData) => {
+    if (err) {
+        cb(err, null);
+    } else {
+        cb(null, loginData);
+    };
 }
 
 module.exports.getUser = (cb) => {
