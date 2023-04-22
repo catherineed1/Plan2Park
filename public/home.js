@@ -1,7 +1,6 @@
 jQuery(function() { 
     var driver;
     var carPoolID;
-
     $.ajax({
         method: 'get',
         url: '/getUser',
@@ -9,10 +8,11 @@ jQuery(function() {
         xhrFields: { withCredentials: true },
         success: function (response) {
             userID = response.data._id;
+            var fullname = response.data.fullName;
+            $('#welcome').html(fullname);
         }
     });
 
-  
 
     $('#poolBtn').on('click', function () {
             if($('#car-join').hasClass('new card text-center')){

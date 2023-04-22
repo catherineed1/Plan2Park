@@ -1,11 +1,11 @@
 /* General CSS  */
-body,h1,h2,h3,h4,h5,h6,label{
-  font-family: Helvetica;
+h1,h2,h3,h4,h6{
+  font-family:Verdana, sans-serif;
   color: #4b4b4b;
 }
 
-html{
-  font-family: Helvetica;
+body{
+  font-family:Arial, Helvetica, sans-serif;
   color: #4b4b4b;
 }
 
@@ -164,7 +164,6 @@ footer{
 }
 
 #bold{
-  font-weight: bold;
   color: rgb(9, 87, 152);
 }
 
@@ -178,4 +177,10 @@ footer{
 
 thead{
   background-color: rgb(242, 244, 244);
+}
+
+#welcomebanner{
+  align-self: center;
+  text-align: center;
+  align-items: center;
 }

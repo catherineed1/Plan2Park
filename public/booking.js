@@ -10,8 +10,36 @@ jQuery(function () {
         xhrFields: { withCredentials: true },
         success: function (response) {
             userID = response.data._id;
-            var fullname = response.data.fullName;
-            // $('#currentUser').html(fullname);
+        }
+    });
+
+    $.ajax({
+        method: 'get',
+        url: '/getCars',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            var count = response.data;
+            $.each(count, function (index, value) {
+                console.log(value);
+                var make = response.data[index].make;
+                $('#chooseVehicle').append($('<option></option>').html(make));
+            });
+        }
+     });
+
+    $.ajax({
+        method: 'get',
+        url: '/getLocations',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            var count = response.data;
+            $.each(count, function (index, value) {
+                console.log(value);
+                var nickname = response.data[index].nickname;
+                $('#chooseLocation').append($('<option></option>').html(nickname));
+            });
         }
     });
 
