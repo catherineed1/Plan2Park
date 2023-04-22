@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const userLocationSchema = new mongoose.Schema({
-    id: {
-        type: String
+    userID: {
+        type: String,
+        required: true
     },
     nickname: {
         type: String,

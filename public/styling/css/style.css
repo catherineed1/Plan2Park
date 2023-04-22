@@ -1,6 +1,11 @@
 /* General CSS  */
-body,h1,h2,h3,h4,h5,h6{
-  font-family: "Raleway", sans-serif;
+body,h1,h2,h3,h4,h5,h6,label{
+  font-family: Helvetica;
+  color: #4b4b4b;
+}
+
+html{
+  font-family: Helvetica;
   color: #4b4b4b;
 }
 
@@ -160,4 +165,17 @@ footer{
 
 #bold{
   font-weight: bold;
+  color: rgb(9, 87, 152);
+}
+
+#boldNC, #boldNL{
+  font-weight: bold;
+}
+
+#logoutBtn{
+  float: right;
+}
+
+thead{
+  background-color: rgb(242, 244, 244);
 }

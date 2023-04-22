@@ -1,54 +1,326 @@
 jQuery(function () {
+    var userID;
     $('#newCar').hide();
     $('#newLoc').hide();
+
+    $(".addnew").hover(function () {
+        $(this).css("color", "#298AD8");
+    }, function () {
+        $(this).css("color", "#4b4b4b");
+    });
 
     $.ajax({
         method: 'get',
         url: '/getUser',
+        dataType: 'json',
+        xhrFields: { withCredentials: true },
+        success: function (response) {
+            userID = response.data._id;
+            var fullname = response.data.fullName;
+            $('#currentUser').html(fullname);
+        }
+    });
+
+    $.ajax({
+        method: 'get',
+        url: '/getUserBookings',
         dataType: 'html',
         success: function (response) {
             var json = JSON.parse(response);
             var count = json.data;
-            console.log(count);
-
-            $.each(count, function(index, value){
+            $('#parkingBookings').append('<table class="table table-hover" id="bookingTable">\
+            <thead>\
+              <tr>\
+                <th scope="col">Location</th>\
+                <th scope="col">Vehicle</th>\
+                <th scope="col">Passenger</th>\
+                <th scope="col">Date In</th>\
+                <th scope="col">Date Out</th>\
+                <th scope="col"></th>\
+              </tr>\
+              </thead>\
+              <tbody id="my-bookings">\
+              </tbody>\
+            </table>');
+            $.each(count, function (index, value) {
                 console.log(value);
-                var user = json.data[index].username;
-                var name = json.data[index].fullName;
-                var address = json.data[index].address[0].nickname;
-                var addressline = json.data[index].address[0].street_number;
-                var postcode = json.data[index].address[0].postcode;
-                var vehicle = json.data[index].vehicle[0].make;
-                var vehiclecolour = json.data[index].vehicle[0].colour;
-                var reg = json.data[index].vehicle[0].registration;
-                var data = "Username: " + user + ", Name: " + name + ", Address: " + address + ", Vehicle: " + vehicle;
-                $('#currentUser').append(name);
-                $('#retrieveUser').append('<br>' + data);
+                var bookingID = json.data[index]._id;
+                var location = json.data[index].pickupLoc;
+                var vehicle = json.data[index].vehicle;
+                var passengers = json.data[index].noOfPassenegers;
+                var dateIn = json.data[index].dateIn;
+                var dateOut = json.data[index].dateOut;
+                $('#my-bookings').append('<tr><td scope="row">' + location + '</td>\
+            <td>'+ vehicle + '</td>\
+            <td>'+ passengers + '</td>\
+            <td>'+ dateIn.substring(0,10) + '</td>\
+            <td>'+ dateOut.substring(0,10) + '</td>\
+            <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
+            </td></tr>');
+            });
+            $('#delBookingBtn').on('click', function (e) {
+                console.log($(e.currentTarget).attr('data-mybookingID'));
+                var bookingID = $(e.currentTarget).attr('data-mybookingID');
+                $.ajax({
+                    data: { bookingId: bookingID },
+                    method: 'delete',
+                    url: '/deleteSpaceBooking',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        alert('booking deleted');
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log('server error occured ', response);
+                    }
+                });
+            });
+        }
+    });
+
+    // $.ajax({
+    //     method: 'get',
+    //     url: '/getCarPoolBookings',
+    //     dataType: 'html',
+    //     success: function (response) {
+    //         var json = JSON.parse(response);
+    //         var count = json.data;
+    //         $('#carpoolBookings').append('<table class="table table-hover" id="CPbookingTable">\
+    //         <thead>\
+    //           <tr>\
+    //             <th scope="col">Location</th>\
+    //             <th scope="col">Vehicle</th>\
+    //             <th scope="col">Passenger</th>\
+    //             <th scope="col">Date In</th>\
+    //             <th scope="col">Date Out</th>\
+    //             <th scope="col"></th>\
+    //           </tr>\
+    //           </thead>\
+    //           <tbody id="my-CP-bookings">\
+    //           </tbody>\
+    //         </table>');
+    //         $.each(count, function (index, value) {
+    //             console.log(value);
+    //             var bookingID = json.data[index]._id;
+    //             var location = json.data[index].pickupLoc;
+    //             var vehicle = json.data[index].vehicle;
+    //             var passengers = json.data[index].noOfPassenegers;
+    //             var dateIn = json.data[index].dateIn;
+    //             var dateOut = json.data[index].dateOut;
+    //             $('#my-CP-bookings').append('<tr><td scope="row">' + location + '</td>\
+    //         <td>'+ vehicle + '</td>\
+    //         <td>'+ passengers + '</td>\
+    //         <td>'+ dateIn.substring(0,10) + '</td>\
+    //         <td>'+ dateOut.substring(0,10) + '</td>\
+    //         <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
+    //         </td></tr>');
+    //         });
+    //         $('#delBookingBtn').on('click', function (e) {
+    //             console.log($(e.currentTarget).attr('data-mybookingID'));
+    //             var bookingID = $(e.currentTarget).attr('data-mybookingID');
+    //             $.ajax({
+    //                 data: { bookingId: bookingID },
+    //                 method: 'delete',
+    //                 url: '/deleteSpaceBooking',
+    //                 dataType: 'json',
+    //                 success: function (response) {
+    //                     console.log(response);
+    //                     location.reload();
+    //                 },
+    //                 error: function (response) {
+    //                     console.log('server error occured ', response);
+    //                 }
+    //             });
+    //         });
+    //     }
+    // });
+
+    $.ajax({
+        method: 'get',
+        url: '/getCars',
+        dataType: 'json',
+        success: function (response) {
+            var count = response.data;
+            $('#AddNewCar').append('<table class="table table-hover" id="CarTable">\
+            <thead>\
+              <tr>\
+                <th scope="col">Make</th>\
+                <th scope="col">Colour</th>\
+                <th scope="col">Registration</th>\
+                <th scope="col"></th>\
+              </tr>\
+            </thead>\
+            <tbody id="cars">\
+            </tbody>\
+          </table>');
+            $.each(count, function (index, value) {
+                console.log(value);
+                var carID = response.data[index]._id;
+                var make = response.data[index].make;
+                var colour = response.data[index].colour;
+                var registration = response.data[index].registration;
+                $('#cars').append('<tr><td scope="row">' + make + '</td>\
+            <td>'+ colour + '</td>\
+            <td>'+ registration + '</td>\
+            <td><i class="fas fa-trash" type="button" id="delCarBtn" data-carID="'+ carID + '"></i>\
+            </td></tr>');
+            });
+            $('#delCarBtn').on('click', function (e) {
+                console.log($(e.currentTarget).attr('data-carID'));
+                var car_ID = $(e.currentTarget).attr('data-carID');
+                $.ajax({
+                    data: { carId: car_ID },
+                    method: 'delete',
+                    url: '/deleteCar',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log('server error occured ', response);
+                    }
+                });
             });
         }
     });
 
     $('#new-car-check').on('click', function () {
-       if($('#newCar').hasClass('show form-group')){
+        if ($('#newCar').hasClass('show form-group')) {
             $('#newCar').attr('class', 'form-group');
             $('#newCar').hide();
         }
-        else if($( '#newCar' ).hasClass('form-group')){
+        else if ($('#newCar').hasClass('form-group')) {
             $('#newCar').show();
             $('#newCar').attr('class', 'show form-group');
         }
     });
-       
+
+    $('#new-car').on('click', function () {
+        const carData = {
+            userID: userID,
+            make: $("#car-make").val(),
+            colour: $("#car-colour").val(),
+            registration: $("#car-registration").val()
+        };
+        console.log(carData);
+
+        $.ajax({
+            data: carData,
+            method: 'post',
+            url: '/addCar',
+            dataType: 'json',
+            success: function (response) {
+                $("#car-make").val("");
+                $("#car-colour").val("");
+                $("#car-registration").val("");
+                location.reload();
+            },
+            error: function (response) {
+                console.log('server error occured ', response);
+            }
+        });
+    });
+
+    $.ajax({
+        method: 'get',
+        url: '/getLocations',
+        dataType: 'json',
+        success: function (response) {
+            var count = response.data;
+            $('#AddNewLoc').append('<table class="table table-hover" id="LocTable">\
+            <thead>\
+              <tr>\
+                <th scope="col">Nickname</th>\
+                <th scope="col">Address</th>\
+                <th scope="col">Postcode</th>\
+                <th scope="col"></th>\
+              </tr>\
+            </thead>\
+            <tbody id="locations">\
+            </tbody>\
+          </table>');
+            $.each(count, function (index, value) {
+                console.log(value);
+                var locID = response.data[index]._id;
+                var nickname = response.data[index].nickname;
+                var street_num = response.data[index].street_num;
+                var postcode = response.data[index].postcode;
+                $('#locations').append('<tr><td scope="row">' + nickname + '</td>\
+            <td>'+ street_num + '</td>\
+            <td>'+ postcode + '</td>\
+            <td><i class="fas fa-trash" type="button" id="delLocBtn" data-locID="'+ locID + '"></i>\
+            </td></tr>');
+            });
+            $('#delLocBtn').on('click', function (e) {
+                console.log($(e.currentTarget).attr('data-locID'));
+                var loc_ID = $(e.currentTarget).attr('data-locID');
+                $.ajax({
+                    data: { locId: loc_ID },
+                    method: 'delete',
+                    url: '/deleteLoc',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log('server error occured ', response);
+                    }
+                });
+            });
+        }
+    });
 
     $('#new-loc-check').on('click', function () {
-        if($('#newLoc').hasClass('show form-group')){
+        if ($('#newLoc').hasClass('show form-group')) {
             $('#newLoc').attr('class', 'form-group');
             $('#newLoc').hide();
         }
-        else if($('#newLoc').hasClass('form-group')){
+        else if ($('#newLoc').hasClass('form-group')) {
             $('#newLoc').show();
             $('#newLoc').attr('class', 'show form-group');
         }
+    });
+
+    $('#new-loc').on('click', function () {
+        const locData = {
+            userID: userID,
+            nickname: $("#loc-name").val(),
+            street_num: $("#addressLine1").val(),
+            postcode: $("#postcode").val()
+        };
+        console.log(locData);
+
+        $.ajax({
+            data: locData,
+            method: 'post',
+            url: '/addLocation',
+            dataType: 'json',
+            success: function (response) {
+                $("#loc-name").val("");
+                $("#addressLine1").val("");
+                $("#postcode").val("");
+                location.reload();
+            },
+            error: function (response) {
+                console.log('server error occured ', response);
+            }
+        });
+    });
+
+    $('#logoutBtn').on('click', function () {
+        $.ajax({
+            method: 'get',
+            url: '/logout',
+            success: function (response) {
+                $(location).attr('href', '/login');
+            },
+            error: function (response) {
+                console.log('server error occured ', response);
+            }
+        });
     });
 });
 

@@ -7,11 +7,12 @@ jQuery(function () {
         console.log(loginData);
        $.ajax({
             data: loginData,
-            method: 'get',
+            method: 'post',
             url: '/findUser',
             dataType: 'json',
             success: function (response) {
                 console.log(response);
+                $(location).attr('href','/home');
             },
             error: function (response) {
                 alert('Invalid Details');

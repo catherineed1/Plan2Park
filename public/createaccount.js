@@ -14,6 +14,7 @@ jQuery(function () {
             success: function (response) {
                 console.log('user added successfully');
                 alert('account created successfully');
+                $(location).attr('href','/login');
             },
             error: function (response) {
                 console.log('server error occured ', response);

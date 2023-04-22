@@ -1,6 +1,7 @@
 const express     = require('express');  
 const mongoose    = require('mongoose');  
 const bodyParser  = require('body-parser');  
+const cookieParser  = require('cookie-parser');
 const path        = require('path');  
 const $           = require('jquery');  
 
@@ -19,6 +20,8 @@ app.set('view engine','ejs');
   
 //fetch data from the request  
 app.use(bodyParser.urlencoded({extended:false}));  
+
+app.use(cookieParser());
   
 //set the path of the jquery file to be used from the node_module jquery package  
 app.use('/jquery',express.static(path.join(__dirname+'/node_modules/jquery/dist/')));  

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const userCarSchema = new mongoose.Schema({
-    id: {
-        type: String
+    userID: {
+        type: String,
+        required: true
     },
     make: {
         type: String,
@@ -28,7 +29,7 @@ module.exports.addCar = (cb, err, carData) => {
 }
 
 module.exports.getCars = (cb) => {
-    userCarsModel .find((err, carData) => {
+    userCarsModel.find((err, carData) => {
         if (err) {
             cb(err, null);
         } else {
