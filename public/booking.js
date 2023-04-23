@@ -84,6 +84,32 @@ jQuery(function () {
             }
         });
     });
+    
+    $('#openBtn').on('click', function () {
+        document.getElementById("reportForm").style.display = "block";
+    });
+
+    $('#closeBtn').on('click', function () {
+        document.getElementById("reportForm").style.display = "none";
+    });
+
+    $('#sendIssue').on('click', function () {
+        const issueData = {
+            spaceNum: $("#spaceNum").val(),
+            userID: userID,
+            issue: $("#issueDetails").val()
+        };
+        $.ajax({
+            data: issueData,
+            method: 'post',
+            url: '/addIssue',
+            dataType: 'json',
+            success: function (response) {
+                document.getElementById("reportForm").style.display = "none";
+            }
+        });
+        
+    });
 
     $('#logoutBtn').on('click', function () {
         $.ajax({
