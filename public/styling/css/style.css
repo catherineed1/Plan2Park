@@ -1,6 +1,11 @@
 /* General CSS  */
-body,h1,h2,h3,h4,h5,h6{
-  font-family: "Raleway", sans-serif;
+h1,h2,h3,h4,h6{
+  font-family:Verdana, sans-serif;
+  color: #4b4b4b;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
   color: #4b4b4b;
 }
 
@@ -58,7 +63,7 @@ footer{
   padding: 20px 0 20px 0;
   border-bottom: 1px solid #dee0e4;
 }
-#loginForm {
+#loginForm, #createAccountForm {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -72,7 +77,7 @@ footer{
   height: 50px;
   color: black;
 }
-#username, #password {
+#email, #password, #fullname {
   width: 310px;
   height: 50px;
   border: 1px solid #dee0e4;
@@ -159,5 +164,23 @@ footer{
 }
 
 #bold{
+  color: rgb(9, 87, 152);
+}
+
+#boldNC, #boldNL{
   font-weight: bold;
+}
+
+#logoutBtn{
+  float: right;
+}
+
+thead{
+  background-color: rgb(242, 244, 244);
+}
+
+#welcomebanner{
+  align-self: center;
+  text-align: center;
+  align-items: center;
 }

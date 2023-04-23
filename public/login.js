@@ -1,22 +1,21 @@
 jQuery(function () {
-    $('#createAccountBtn').on('click', function () {
-        const userData = {
-            fullName: $("#fullname").val(),
+    $('#loginBtn').on('click', function () {
+        const loginData = {
             username: $("#email").val(),
             password: $("#password").val()
         };
-        console.log(userData);
+        console.log(loginData);
        $.ajax({
-            data: userData,
+            data: loginData,
             method: 'post',
-            url: '/createAccount',
+            url: '/findUser',
             dataType: 'json',
             success: function (response) {
-                console.log('user added successfully');
-                alert('account created successfully');
-                $(location).attr('href','/login');
+                console.log(response);
+                $(location).attr('href','/home');
             },
             error: function (response) {
+                alert('Invalid Details');
                 console.log('server error occured ', response);
             }
         });

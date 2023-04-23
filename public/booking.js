@@ -1,7 +1,47 @@
 jQuery(function () {
+    var userID;
 
     $('#carpool').hide();
 
+    $.ajax({
+        method: 'get',
+        url: '/getUser',
+        dataType: 'json',
+        xhrFields: { withCredentials: true },
+        success: function (response) {
+            userID = response.data._id;
+        }
+    });
+
+    $.ajax({
+        method: 'get',
+        url: '/getCars',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            var count = response.data;
+            $.each(count, function (index, value) {
+                console.log(value);
+                var make = response.data[index].make;
+                $('#chooseVehicle').append($('<option></option>').html(make));
+            });
+        }
+     });
+
+    $.ajax({
+        method: 'get',
+        url: '/getLocations',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            var count = response.data;
+            $.each(count, function (index, value) {
+                console.log(value);
+                var nickname = response.data[index].nickname;
+                $('#chooseLocation').append($('<option></option>').html(nickname));
+            });
+        }
+    });
 
     $('#carpool-check').on('click', function () {
         if( $('#carpool-check').is(':checked') ){
@@ -10,7 +50,6 @@ jQuery(function () {
         else{
             $('#carpool').hide();
         }
-
     });
     
     $('rect').on('click', function () {
@@ -21,6 +60,7 @@ jQuery(function () {
     $('#car-register-submit').on('click', function () {
         const formData = {
             spaceID: $("#spaceNo").html(),
+            userID: userID,
             pickupLoc: $("#chooseLocation").val(),
             vehicle: $("#chooseVehicle").val(),
             noOfPassenegers: $("#inputPassenegers").val(),
@@ -32,7 +72,7 @@ jQuery(function () {
        $.ajax({
             data: formData,
             method: 'post',
-            url: '/addCarPool',
+            url: '/addCarBooking',
             dataType: 'json',
             success: function (response) {
                 alert('Booking successful');
@@ -44,4 +84,17 @@ jQuery(function () {
             }
         });
     });
+
+    $('#logoutBtn').on('click', function () {
+        $.ajax({
+             method: 'get',
+             url: '/logout',
+             success: function (response) {
+                 $(location).attr('href','/login');
+             },
+             error: function (response) {
+                 console.log('server error occured ', response);
+             }
+         });
+     });
 });

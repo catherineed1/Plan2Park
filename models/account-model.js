@@ -1,43 +1,15 @@
 const mongoose = require('mongoose');
 
 const userAccountSchema = new mongoose.Schema({
+    fullName: {
+        type: String
+    },
     username: {
         type: String
     },
     password: {
         type: String
-    },
-    fullName: {
-        type: String
-    },
-    address: [{
-        line1: {
-            type: String,
-            required: true
-        },
-        line2: {
-            type: String,
-            required: true
-        },
-        town: {
-            type: String,
-            required: true
-        },
-        postcode: {
-            type: String,
-            required: true
-        }
-    }],
-    vehicle: [{
-        nickname: {
-            type: String,
-            required: true
-        },
-        registration: {
-            type: String,
-            required: true
-        }
-    }]
+    }
 });
 const userAccountlModel = module.exports = mongoose.model('user-account', userAccountSchema);
 
@@ -49,6 +21,14 @@ module.exports.createAccount = (cb, err, userData) => {
         };
 }
 
+module.exports.findUserExists = (cb, err, loginData) => {
+    if (err) {
+        cb(err, null);
+    } else {
+        cb(null, loginData);
+    };
+}
+
 module.exports.getUser = (cb) => {
     userAccountlModel.find((err, userData) => {
         if (err) {
@@ -58,3 +38,7 @@ module.exports.getUser = (cb) => {
         }
     });
 }
+
+
+
+

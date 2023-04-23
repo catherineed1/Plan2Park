@@ -1,101 +1,231 @@
-const express    = require('express');  
-const carPoolModel  = require('../models/car-register-model');  
-const userModel  = require('../models/account-model');  
-  
-const router = express.Router();  
-  
-router.get('/home',(req,res)=>{  
- res.render('index');  
-});  
+const express = require('express');
+const carBookingModel = require('../models/car-register-model');
+const userModel = require('../models/account-model');
+const carModel = require('../models/car-model');
+const locModel = require('../models/location-model');
+const carPoolModel = require('../models/car-pool-model');
+const router = express.Router();
 
-router.get('/login',(req,res)=>{  
-    res.render('login');  
+router.get('/home', (req, res) => {
+    res.render('index');
 });
 
-router.get('/publicTransportMap',(req,res)=>{  
-    res.render('public_transport/publicTransportMap');  
-}); 
+router.get('/login', (req, res) => {
+    res.render('account/login');
+});
 
-// router.get('/carPooling',(req,res)=>{  
-//     res.render('car_pooling/carPooling');  
-// });  
+router.get('/publicTransportMap', (req, res) => {
+    res.render('public_transport/publicTransportMap');
+});
 
-router.get('/carParkBooking',(req,res)=>{  
-    res.render('car_park_booking/booking');  
-});  
+router.get('/carParkBooking', (req, res) => {
+    res.render('car_park_booking/booking');
+});
 
-router.get('/create-account',(req,res)=>{  
-    res.render('account/create_account');  
-});  
+router.get('/createAccount', (req, res) => {
+    res.render('account/create_account');
+});
 
-router.get('/account',(req,res)=>{  
-    res.render('account/account');  
-});  
+router.get('/account', (req, res) => {
+    res.render('account/account');
+});
 
-router.post('/addCarPool',(req,res)=>{  
-    const carPoolData = new carPoolModel(req.body);
-    carPoolData.save();
-    carPoolModel.addCarPool((err, carPoolData)=>{
-        if(err){
-            res.json({msg:'error'});
+router.post('/addCarBooking', (req, res) => {
+    const carBookingData = new carBookingModel(req.body);
+    carBookingData.save();
+    carBookingModel.addCarPool((err, carBookingData) => {
+        if (err) {
+            res.json({ msg: 'error' });
         }
-        else{
-            res.json({data:carPoolData});
+        else {
+            res.json({ data: carBookingData });
         }
     });
-});  
+});
 
-router.get('/getCarPool',(req,res)=>{  
-    carPoolModel.getCarPool((err,formData)=>{  
-            if(err){  
-                res.json({msg:'error'});  
-            }else{  
-                res.json({data:formData});  
-            }  
-    });  
-  });  
+router.get('/getCarBookings', (req, res) => {
+    carBookingModel.getCarPool(req.cookies.loggedInUser, (err, formData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: formData });
+        }
+    });
+});
 
-  router.post('/createAccount',(req,res)=>{ 
-    let keys = Object.keys(req.body);
-    console.log(req.body[keys[0]]);
-
-    const user = {
-        username: req.body[keys[0]],
-        password: req.body[keys[1]],
-        fullName: req.body[keys[2]],
-        address:[{
-            line1: req.body[keys[3]],
-            line2: req.body[keys[4]],
-            town: req.body[keys[5]],
-            postcode: req.body[keys[6]],
-        }],
-        vehicle:[{
-            nickname: req.body[keys[7]],
-            registration: req.body[keys[8]]
-        }]
-    }
-    console.log(user);
-    const userData = new userModel(user);
-
+router.post('/createAccount', (req, res) => {
+    const userData = new userModel(req.body);
     userData.save();
-    userModel.createAccount((err, userData)=>{
-        if(err){
-            res.json({msg:'error'});
+    userModel.createAccount((err, userData) => {
+        if (err) {
+            res.json({ msg: 'error' });
         }
-        else{
-            res.json({data:userData});
+        else {
+            res.json({ data: userData });
         }
     });
-});  
+});
 
-router.get('/getUser',(req,res)=>{  
-    userModel.getUser((err,userData)=>{  
-            if(err){  
-                res.json({msg:'error'});  
-            }else{  
-                res.json({data:userData});  
-            }  
-    });  
-  });  
+router.post('/findUser', (req, res) => {
+    const loginData = new userModel(req.body);
+    userModel.findOne({ username: loginData.username, password: loginData.password }, function (err, result) {
+        if (err || !result) {
+            res.status(403);
+            res.json({ msg: 'error' });
+        }else {
+            res.cookie('loggedInUser', result._id);
+            res.json({ data: result._id });
+        }
+    });
+});
+
+router.get('/getUser', (req, res) => {
+    userModel.findById(req.cookies.loggedInUser, (err, userData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: userData });
+        }
+    });
+});
+
+router.get('/getDriver', (req, res) => {
+    console.log(req.body);
+    userModel.findById({driverId: req.body.driverId}, (err, userData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: userData });
+        }
+    });
+});
+
+router.post('/addCar', (req, res) => {
+    const carData = new carModel(req.body);
+    carData.save();
+    carModel.addCar((err, carData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        }
+        else {
+            res.json({ data: carData });
+        }
+    });
+});
+
+router.get('/getCars', (req, res) => {
+    carModel.find({userID:req.cookies.loggedInUser}, (err, carData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: carData });
+        }
+    });
+});
+
+router.get('/getUserBookings', (req, res) => {
+    carBookingModel.getUserBookings(req.cookies.loggedInUser, (err, formData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: formData });
+        }
+    });
+});
+
+router.get('/getCarPoolBookings', (req, res) => {
+    carBookingModel.getUserBookings(req.cookies.loggedInUser, (err, formData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: formData });
+        }
+    });
+});
+
+router.get('/countCarPoolBookings', (req, res) => {
+    carPoolModel.where({bookingID: req.body.bookingId}).count((err, formData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: formData });
+        }
+    });
+});
+
+router.delete('/deleteSpaceBooking', (req, res) => {
+    console.log(req.body.bookingId);
+    carPoolModel.deleteOne({_id: req.body.bookingId}, (err, formData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: formData });
+        }
+    });
+});
+
+router.delete('/deleteCar', (req, res) => {
+    console.log(req.body.carId);
+    carModel.deleteOne({_id: req.body.carId}, (err, carData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: carData });
+        }
+    });
+});
+
+router.post('/addLocation', (req, res) => {
+    const locData = new locModel(req.body);
+    locData.save();
+    locModel.addLocation((err, locData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        }
+        else {
+            res.json({ data: locData });
+        }
+    });
+});
+
+router.get('/getLocations', (req, res) => {
+    locModel.find({userID:req.cookies.loggedInUser}, (err, locData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: locData });
+        }
+    });
+});
+
+router.delete('/deleteLoc', (req, res) => {
+    console.log(req.body.locId);
+    locModel.deleteOne({_id: req.body.locId}, (err, locData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: locData });
+        }
+    });
+});
+
+router.post('/addCarPool', (req, res) => {
+    const carPoolData = new carPoolModel(req.body);
+    console.log(carPoolData);
+    carPoolData.save();
+    carPoolModel.addCarPool((err, carPoolData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        }
+        else {
+            res.json({ data: carPoolData });
+        }
+    });
+});
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('loggedInUser');
+    res.send();
+});
 
 module.exports = router; 

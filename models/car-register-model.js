@@ -6,6 +6,10 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    userID: {
+        type: String,
+        required: true
+    },
     pickupLoc: {
         type: String
     },
@@ -26,7 +30,7 @@ const bookingSchema = new mongoose.Schema({
     },
 });
 bookingSchema.plugin(mongooseDateFormat);
-const carPoolModel = module.exports = mongoose.model('space-booking', bookingSchema);
+const carBookingModel = module.exports = mongoose.model('space-booking', bookingSchema);
 
 module.exports.addCarPool = (cb, err, carPoolData) => {
         if (err) {
@@ -36,8 +40,18 @@ module.exports.addCarPool = (cb, err, carPoolData) => {
         };
 }
 
-module.exports.getCarPool = (cb) => {
-    carPoolModel.find((err, formData) => {
+module.exports.getCarPool = (user_ID, cb) => {
+    carBookingModel.find({userID: { $ne: user_ID }}, (err, formData) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, formData);
+        }
+    });
+}
+
+module.exports.getUserBookings = (user_ID, cb) => {
+    carBookingModel.find({userID: user_ID}, (err, formData) => {
         if (err) {
             cb(err, null);
         } else {
