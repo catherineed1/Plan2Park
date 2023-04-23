@@ -19,13 +19,3 @@ module.exports.addCarPool = (cb, err, carPoolData) => {
             cb(null, carPoolData);
         };
 }
-
-module.exports.getCarPoolBookings = (user_ID, cb) => {
-    carPoolModel.when({userID: user_ID}).find({bookingID: booking_ID}, (err, formData) => {
-        if (err) {
-            cb(err, null);
-        } else {
-            cb(null, formData);
-        }
-    });
-}

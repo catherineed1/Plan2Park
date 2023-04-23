@@ -76,11 +76,7 @@ jQuery(function () {
             dataType: 'json',
             success: function (response) {
                 alert('Booking successful');
-                $('#car-register-form')[0].reset();
-            },
-            error: function (response) {
-                alert('Incorrect Details ', response);
-                $('#car-register-form')[0].reset();
+                $(location).attr('href','/home');
             }
         });
     });

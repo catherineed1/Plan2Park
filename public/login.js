@@ -11,8 +11,14 @@ jQuery(function () {
             url: '/findUser',
             dataType: 'json',
             success: function (response) {
-                console.log(response);
-                $(location).attr('href','/home');
+                if(loginData.username == 'admin@email.com'){
+                    console.log(response);
+                    $(location).attr('href','/admin');
+                }
+                else{
+                    console.log(response);
+                    $(location).attr('href','/home');
+                }  
             },
             error: function (response) {
                 alert('Invalid Details');
