@@ -33,7 +33,6 @@ jQuery(function () {
               <tr>\
                 <th scope="col">Location</th>\
                 <th scope="col">Vehicle</th>\
-                <th scope="col">Passenger</th>\
                 <th scope="col">Date In</th>\
                 <th scope="col">Date Out</th>\
                 <th scope="col"></th>\
@@ -47,94 +46,91 @@ jQuery(function () {
                 var bookingID = json.data[index]._id;
                 var location = json.data[index].pickupLoc;
                 var vehicle = json.data[index].vehicle;
-                var passengers = json.data[index].noOfPassenegers;
                 var dateIn = json.data[index].dateIn;
                 var dateOut = json.data[index].dateOut;
                 $('#my-bookings').append('<tr><td scope="row">' + location + '</td>\
-            <td>'+ vehicle + '</td>\
-            <td>'+ passengers + '</td>\
-            <td>'+ dateIn.substring(0,10) + '</td>\
-            <td>'+ dateOut.substring(0,10) + '</td>\
-            <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
-            </td></tr>');
+                <td>'+ vehicle + '</td>\
+                <td>'+ dateIn.substring(0, 10) + '</td>\
+                <td>'+ dateOut.substring(0, 10) + '</td>\
+                <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
+                </td></tr>');
+                $("#delBookingBtn[data-mybookingID='" + bookingID + "']").on('click', function () {
+                    var BID = $('#delBookingBtn').attr('data-mybookingID');
+                    console.log(BID);
+                    $.ajax({
+                        data: { bookingId: BID },
+                        method: 'delete',
+                        url: '/deleteSpaceBooking',
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            alert('booking deleted');
+                            window.location.reload();
+                        },
+                        error: function (response) {
+                            console.log('server error occured ', response);
+                        }
+                    });
+                });
             });
-            $('#delBookingBtn').on('click', function (e) {
-                console.log($(e.currentTarget).attr('data-mybookingID'));
-                var bookingID = $(e.currentTarget).attr('data-mybookingID');
+        }
+    });
+
+    $.ajax({
+        method: 'get',
+        url: '/getCarPoolBookings',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            var count = response.data;
+            $('#carpoolBookings').append('<table class="table table-hover" id="CPbookingTable">\
+            <thead>\
+              <tr>\
+                <th scope="col">Driver</th>\
+                <th scope="col">Location</th>\
+                <th scope="col">Vehicle</th>\
+                <th scope="col">Date In</th>\
+                <th scope="col">Date Out</th>\
+                <th scope="col"></th>\
+              </tr>\
+              </thead>\
+              <tbody id="my-CP-bookings">\
+              </tbody>\
+            </table>');
+            $.each(count, function (index, value) {
+                console.log(value);
+                var CPbookingID = response.data[index].cpID;
+                var driver = response.data[index].driverName;
+                var location = response.data[index].pickupLoc;
+                var vehicle = response.data[index].vehicle;
+                var dateIn = response.data[index].dateIn;
+                var dateOut = response.data[index].dateOut;
+                $('#my-CP-bookings').append('<tr><td scope="row">' + driver + '</td>\
+                <td>'+ location + '</td>\
+                <td>'+ vehicle + '</td>\
+                <td>'+ dateIn.substring(0, 10) + '</td>\
+                <td>'+ dateOut.substring(0, 10) + '</td>\
+                <td><i class="fas fa-trash" type="button" id="delCPBtn" data-myCPbookingID="'+ CPbookingID + '"></i>\
+                </td></tr>');
+           
+            $("#delCPBtn[data-myCPbookingID='" + CPbookingID + "']").on('click', function () {
+                var CPBID = $('#delCPBtn').attr('data-myCPbookingID');
                 $.ajax({
-                    data: { bookingId: bookingID },
+                    data: { carpoolBookingId: CPBID },
                     method: 'delete',
-                    url: '/deleteSpaceBooking',
+                    url: '/deleteCarPoolBooking',
                     dataType: 'json',
                     success: function (response) {
-                        console.log(response);
-                        alert('booking deleted');
-                        location.reload();
+                        window.location.reload();
                     },
                     error: function (response) {
                         console.log('server error occured ', response);
                     }
                 });
             });
+          });
         }
     });
-
-    // $.ajax({
-    //     method: 'get',
-    //     url: '/getCarPoolBookings',
-    //     dataType: 'html',
-    //     success: function (response) {
-    //         var json = JSON.parse(response);
-    //         var count = json.data;
-    //         $('#carpoolBookings').append('<table class="table table-hover" id="CPbookingTable">\
-    //         <thead>\
-    //           <tr>\
-    //             <th scope="col">Location</th>\
-    //             <th scope="col">Vehicle</th>\
-    //             <th scope="col">Passenger</th>\
-    //             <th scope="col">Date In</th>\
-    //             <th scope="col">Date Out</th>\
-    //             <th scope="col"></th>\
-    //           </tr>\
-    //           </thead>\
-    //           <tbody id="my-CP-bookings">\
-    //           </tbody>\
-    //         </table>');
-    //         $.each(count, function (index, value) {
-    //             console.log(value);
-    //             var bookingID = json.data[index]._id;
-    //             var location = json.data[index].pickupLoc;
-    //             var vehicle = json.data[index].vehicle;
-    //             var passengers = json.data[index].noOfPassenegers;
-    //             var dateIn = json.data[index].dateIn;
-    //             var dateOut = json.data[index].dateOut;
-    //             $('#my-CP-bookings').append('<tr><td scope="row">' + location + '</td>\
-    //         <td>'+ vehicle + '</td>\
-    //         <td>'+ passengers + '</td>\
-    //         <td>'+ dateIn.substring(0,10) + '</td>\
-    //         <td>'+ dateOut.substring(0,10) + '</td>\
-    //         <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
-    //         </td></tr>');
-    //         });
-    //         $('#delBookingBtn').on('click', function (e) {
-    //             console.log($(e.currentTarget).attr('data-mybookingID'));
-    //             var bookingID = $(e.currentTarget).attr('data-mybookingID');
-    //             $.ajax({
-    //                 data: { bookingId: bookingID },
-    //                 method: 'delete',
-    //                 url: '/deleteSpaceBooking',
-    //                 dataType: 'json',
-    //                 success: function (response) {
-    //                     console.log(response);
-    //                     location.reload();
-    //                 },
-    //                 error: function (response) {
-    //                     console.log('server error occured ', response);
-    //                 }
-    //             });
-    //         });
-    //     }
-    // });
 
     $.ajax({
         method: 'get',
@@ -153,7 +149,7 @@ jQuery(function () {
             </thead>\
             <tbody id="cars">\
             </tbody>\
-          </table>');
+            </table>');
             $.each(count, function (index, value) {
                 console.log(value);
                 var carID = response.data[index]._id;
@@ -161,14 +157,13 @@ jQuery(function () {
                 var colour = response.data[index].colour;
                 var registration = response.data[index].registration;
                 $('#cars').append('<tr><td scope="row">' + make + '</td>\
-            <td>'+ colour + '</td>\
-            <td>'+ registration + '</td>\
-            <td><i class="fas fa-trash" type="button" id="delCarBtn" data-carID="'+ carID + '"></i>\
-            </td></tr>');
-            });
-            $('#delCarBtn').on('click', function (e) {
-                console.log($(e.currentTarget).attr('data-carID'));
-                var car_ID = $(e.currentTarget).attr('data-carID');
+                <td>'+ colour + '</td>\
+                <td>'+ registration + '</td>\
+                <td><i class="fas fa-trash" type="button" id="delCarBtn" data-carID="'+ carID + '"></i>\
+                </td></tr>');
+           
+            $("#delCarBtn[data-carID='" + carID + "']").on('click', function (e) {
+                var car_ID = $('#delCarBtn').attr('data-carID');
                 $.ajax({
                     data: { carId: car_ID },
                     method: 'delete',
@@ -176,12 +171,13 @@ jQuery(function () {
                     dataType: 'json',
                     success: function (response) {
                         console.log(response);
-                        location.reload();
+                        window.location.reload();
                     },
                     error: function (response) {
                         console.log('server error occured ', response);
                     }
                 });
+            });
             });
         }
     });
@@ -215,7 +211,7 @@ jQuery(function () {
                 $("#car-make").val("");
                 $("#car-colour").val("");
                 $("#car-registration").val("");
-                location.reload();
+                window.location.reload();
             },
             error: function (response) {
                 console.log('server error occured ', response);
@@ -225,7 +221,7 @@ jQuery(function () {
 
     $.ajax({
         method: 'get',
-        url: '/getLocations',
+        url: '/getLocations', 
         dataType: 'json',
         success: function (response) {
             var count = response.data;
@@ -248,14 +244,13 @@ jQuery(function () {
                 var street_num = response.data[index].street_num;
                 var postcode = response.data[index].postcode;
                 $('#locations').append('<tr><td scope="row">' + nickname + '</td>\
-            <td>'+ street_num + '</td>\
-            <td>'+ postcode + '</td>\
-            <td><i class="fas fa-trash" type="button" id="delLocBtn" data-locID="'+ locID + '"></i>\
-            </td></tr>');
-            });
-            $('#delLocBtn').on('click', function (e) {
-                console.log($(e.currentTarget).attr('data-locID'));
-                var loc_ID = $(e.currentTarget).attr('data-locID');
+                <td>'+ street_num + '</td>\
+                <td>'+ postcode + '</td>\
+                <td><i class="fas fa-trash" type="button" id="delLocBtn" data-locID="'+ locID + '"></i>\
+                </td></tr>');
+            
+            $("#delLocBtn[data-locID='" + locID + "']").on('click', function () {
+                var loc_ID = $('#delLocBtn').attr('data-locID');
                 $.ajax({
                     data: { locId: loc_ID },
                     method: 'delete',
@@ -263,12 +258,13 @@ jQuery(function () {
                     dataType: 'json',
                     success: function (response) {
                         console.log(response);
-                        location.reload();
+                        window.location.reload();
                     },
                     error: function (response) {
                         console.log('server error occured ', response);
                     }
                 });
+            });
             });
         }
     });
@@ -302,7 +298,7 @@ jQuery(function () {
                 $("#loc-name").val("");
                 $("#addressLine1").val("");
                 $("#postcode").val("");
-                location.reload();
+                window.location.reload();
             },
             error: function (response) {
                 console.log('server error occured ', response);

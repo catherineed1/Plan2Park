@@ -15,6 +15,11 @@ router.get('/login', (req, res) => {
     res.render('account/login');
 });
 
+router.get('/admin', (req, res) => {
+    res.render('admin/admin');
+});
+
+
 router.get('/publicTransportMap', (req, res) => {
     res.render('public_transport/publicTransportMap');
 });
@@ -45,11 +50,11 @@ router.post('/addCarBooking', (req, res) => {
 });
 
 router.get('/getCarBookings', (req, res) => {
-    carBookingModel.getCarPool(req.cookies.loggedInUser, (err, formData) => {
+    carBookingModel.getCarPool(req.cookies.loggedInUser, (err, bookingsData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
-            res.json({ data: formData });
+            res.json({ data: bookingsData });
         }
     });
 });
@@ -91,8 +96,7 @@ router.get('/getUser', (req, res) => {
 });
 
 router.get('/getDriver', (req, res) => {
-    console.log(req.body);
-    userModel.findById({driverId: req.body.driverId}, (err, userData) => {
+    userModel.findById(req.query.driverID, (err, userData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -125,42 +129,61 @@ router.get('/getCars', (req, res) => {
 });
 
 router.get('/getUserBookings', (req, res) => {
-    carBookingModel.getUserBookings(req.cookies.loggedInUser, (err, formData) => {
+    carBookingModel.getUserBookings(req.cookies.loggedInUser, (err, UBData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
-            res.json({ data: formData });
+            res.json({ data: UBData });
         }
     });
 });
 
-router.get('/getCarPoolBookings', (req, res) => {
-    carBookingModel.getUserBookings(req.cookies.loggedInUser, (err, formData) => {
-        if (err) {
-            res.json({ msg: 'error' });
-        } else {
-            res.json({ data: formData });
-        }
-    });
+router.get('/getCarPoolBookings', async (req, res) => {
+    var cpData = await carPoolModel.find({userID: req.cookies.loggedInUser});
+        var bookings = await Promise.all(cpData.map(async (carpool) => {
+            var bookingData = await carBookingModel.findOne({_id: carpool.bookingID});
+            var driverData = await userModel.findOne({_id: bookingData.userID});
+                return {
+                    cpID: carpool._id, 
+                    bookingID: bookingData._id,
+                    driverName: driverData.fullName,
+                    pickupLoc: bookingData.pickupLoc,
+                    vehicle: bookingData.vehicle,
+                    dateOut: bookingData.dateOut,
+                    dateIn: bookingData.dateIn
+                };
+        }));
+        res.json({data: bookings});
 });
 
 router.get('/countCarPoolBookings', (req, res) => {
-    carPoolModel.where({bookingID: req.body.bookingId}).count((err, formData) => {
+    carPoolModel.where({bookingID: req.query.bookingID}).count((err, countData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
-            res.json({ data: formData });
+            res.json({ data: countData });
         }
     });
 });
 
 router.delete('/deleteSpaceBooking', (req, res) => {
-    console.log(req.body.bookingId);
-    carPoolModel.deleteOne({_id: req.body.bookingId}, (err, formData) => {
+    console.log(req.body);
+    carBookingModel.deleteOne({_id: req.body.bookingId}, (err, spaceData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
-            res.json({ data: formData });
+            res.json({ data: spaceData });
+        }
+    });
+});
+
+router.delete('/deleteCarPoolBooking', (req, res) => {
+    console.log(req.body);
+    carPoolModel.deleteOne({_id: req.body.carpoolBookingId}, (err, CpData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: CpData });
         }
     });
 });
