@@ -4,6 +4,7 @@ const userModel = require('../models/account-model');
 const carModel = require('../models/car-model');
 const locModel = require('../models/location-model');
 const carPoolModel = require('../models/car-pool-model');
+const issueReportModel = require('../models/issue-model');
 const router = express.Router();
 
 router.get('/home', (req, res) => {
@@ -219,6 +220,20 @@ router.post('/addCarPool', (req, res) => {
         }
         else {
             res.json({ data: carPoolData });
+        }
+    });
+});
+
+
+router.post('/addIssue', (req, res) => {
+    const issueData = new issueReportModel(req.body);
+    issueData.save();
+    issueReportModel.addIssue((err, issueData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        }
+        else {
+            res.json({ data: issueData });
         }
     });
 });

@@ -11,6 +11,7 @@
     <title>Plan2Park</title>
     <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="/styling/css/style.css">
    </head>
 
@@ -62,7 +63,7 @@
                     <label style="font-weight: bold">Space Number: </label>
                   </div>
                   <div class="form-group col-md-4">
-                    <label id="spaceNo"></label>
+                    <label id="spaceNo" required></label>
                   </div>
                 </div>
               </div>
@@ -73,7 +74,7 @@
                     <label style="font-weight: bold" for="DateTimeOut">Out: </label>
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="datetime-local" id="DateTimeOut">
+                    <input type="datetime-local" id="DateTimeOut" required>
                   </div>
                 </div>
               </div>
@@ -84,7 +85,7 @@
                     <label style="font-weight: bold" for="DateTimeReturn">Return: </label>
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="datetime-local" id="DateTimeReturn">
+                    <input type="datetime-local" id="DateTimeReturn" required>
                   </div>
                 </div>
               </div>
@@ -95,7 +96,7 @@
                     <label style="font-weight: bold" for="chooseVehicle">Vehicle: </label>
                   </div>
                   <div class="form-group col-md-6">
-                    <select id="chooseVehicle" class="form-control">
+                    <select id="chooseVehicle" class="form-control" rrequired>
                       
                     </select>
                   </div>
@@ -143,7 +144,27 @@
           </div>
         </div>
       </div>
+      <i id="openBtn" class="open-button fas fa-flag"></i>
 
+      <div class="report-popup" id="reportForm">
+        <form class="form-container">
+          <div class="form-row">
+          <label style="font-weight: bold">Report an issue</label>
+        </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="spaceNum">Space number</label>
+            </div>
+            <div class="form-group col-4">
+              <input type="text" name="spaceNum" id="spaceNum" required>
+            </div>
+          </div>
+          <label for="msg">Issue details</label>
+          <textarea placeholder="Details of issue..." name="msg" id="issueDetails" required></textarea>
+          <button type="submit" id="sendIssue" class="btn btn-secondary">Send</button>
+          <button type="button" class="btn cancel btn-danger" id="closeBtn">Close</button>
+        </form>
+      </div>
     </div>
   </div>
 
