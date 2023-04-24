@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const issueReportSchema = new mongoose.Schema({
-    userID: {
+    userEmail: {
         type: String,
         required: true
     },
@@ -22,6 +22,16 @@ module.exports.addIssue = (cb, err, issueData) => {
         } else {
             cb(null, issueData);
         };
+}
+
+module.exports.getReportedIssues = (cb) => {
+    issueReportModel.find((err, issueData) => {
+        if (err) {
+            cb(err, null);
+        } else {
+            cb(null, issueData);
+        }
+    });
 }
 
 

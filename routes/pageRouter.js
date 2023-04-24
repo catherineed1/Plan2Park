@@ -166,6 +166,26 @@ router.get('/countCarPoolBookings', (req, res) => {
     });
 });
 
+router.get('/countUserCreditsRegister', (req, res) => {
+    carBookingModel.where({userID: req.query.userID, carpoolYN: 'yes'}).count((err, countCPData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: countCPData });
+        }
+    });
+});
+
+router.get('/countUserCreditsJoin', (req, res) => {
+    carPoolModel.where({userID:req.cookies.loggedInUser}).count((err, countCPData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: countCPData });
+        }
+    });
+});
+
 router.delete('/deleteSpaceBooking', (req, res) => {
     console.log(req.body);
     carBookingModel.deleteOne({_id: req.body.bookingId}, (err, spaceData) => {
@@ -256,6 +276,16 @@ router.post('/addIssue', (req, res) => {
             res.json({ msg: 'error' });
         }
         else {
+            res.json({ data: issueData });
+        }
+    });
+});
+
+router.get('/getReportedIssues', (req, res) => {
+    issueReportModel.getReportedIssues((err, issueData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
             res.json({ data: issueData });
         }
     });

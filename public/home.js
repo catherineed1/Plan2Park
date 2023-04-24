@@ -66,33 +66,48 @@ jQuery(function () {
                                     dataType: 'json',
                                     success: function (response) {
                                         console.log(response);
-                                        $('tbody').append('<tr><td scope="row">' + driver + '</td>\
-                                        <td>'+ location + '</td>\
-                                        <td>'+ vehicle + '</td>\
-                                        <td>'+ passengers + '</td>\
-                                        <td>'+ response.data + '</td>\
-                                        <td>'+ dateIn.substring(0, 10) + '</td>\
-                                        <td>'+ dateOut.substring(0, 10) + '</td>\
-                                        <td><button id="joinBtn" type="button" class="btn btn-primary" data-mycarpoolID='+ carPoolID + '>Join</button>\
-                                        </td></tr>');
-                                        $("#joinBtn[data-mycarpoolID='"+carPoolID+"']").on('click', function () {
-                                            var CID = $('#joinBtn').attr('data-mycarpoolID');
-                                            $.ajax({
-                                                data: { userID: userID, bookingID: CID },
-                                                method: 'post',
-                                                url: '/addCarPool',
-                                                dataType: 'json',
-                                                success: function (response) {
-                                                    console.log(response);
-                                                    alert('you joined this carpool!');
-                                                    $("#joinBtn[data-mycarpoolID='"+carPoolID+"']").prop('disabled', true);
-                                                },
-                                                error: function (response) {
-                                                    console.log('server error occured ', response);
-                                                }
+                                        if (response.data == passengers){
+                                            $('tbody').append('<tr><td scope="row">' + driver + '</td>\
+                                            <td>'+ location + '</td>\
+                                            <td>'+ vehicle + '</td>\
+                                            <td>'+ passengers + '</td>\
+                                            <td>'+ response.data + '</td>\
+                                            <td>'+ dateIn.substring(0, 10) + '</td>\
+                                            <td>'+ dateOut.substring(0, 10) + '</td>\
+                                            <td><button type="button" class="btn btn-secondary" disabled>Join</button>\
+                                            </td></tr>');
+                                        }else{
+
+                                            $('tbody').append('<tr><td scope="row">' + driver + '</td>\
+                                            <td>'+ location + '</td>\
+                                            <td>'+ vehicle + '</td>\
+                                            <td>'+ passengers + '</td>\
+                                            <td>'+ response.data + '</td>\
+                                            <td>'+ dateIn.substring(0, 10) + '</td>\
+                                            <td>'+ dateOut.substring(0, 10) + '</td>\
+                                            <td><button id="joinBtn" type="button" class="btn btn-primary" data-mycarpoolID='+ carPoolID + '>Join</button>\
+                                            </td></tr>');
+                                            $("#joinBtn[data-mycarpoolID='"+carPoolID+"']").on('click', function () {
+                                                var CID = $('#joinBtn').attr('data-mycarpoolID');
+                                                $.ajax({
+                                                    data: { userID: userID, bookingID: CID },
+                                                    method: 'post',
+                                                    url: '/addCarPool',
+                                                    dataType: 'json',
+                                                    success: function (response) {
+                                                        console.log(response);
+                                                        alert('you joined this carpool!');
+                                                        $("#joinBtn[data-mycarpoolID='"+carPoolID+"']").prop('disabled', true);
+                                                        window.location.reload();
+                                                    },
+                                                    error: function (response) {
+                                                        console.log('server error occured ', response);
+                                                    }
+                                                });
+                                            
                                             });
-                                          
-                                        });
+                                        }
+                                        
                                     }
                                 });
                                

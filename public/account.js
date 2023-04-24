@@ -18,6 +18,28 @@ jQuery(function () {
             userID = response.data._id;
             var fullname = response.data.fullName;
             $('#currentUser').html(fullname);
+            $.ajax({
+                data: { userID: userID },
+                method: 'get',
+                url: '/countUserCreditsRegister',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    var creditsReg = parseInt(response.data);
+                    $.ajax({
+                        method: 'get',
+                        url: '/countUserCreditsJoin',
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            var creditsJoin = parseInt(response.data);
+                            var total = creditsReg + creditsJoin;
+                            $('#creditValue').html(total);
+                        }
+                    });
+                }
+            });
+            
         }
     });
 
