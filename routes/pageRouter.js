@@ -48,6 +48,18 @@ router.post('/addCarBooking', (req, res) => {
     });
 });
 
+router.post('/findBooking', (req, res) => {
+    const carBookingData = new carBookingModel(req.body);
+    carBookingModel.findOne({ spaceID: carBookingData.spaceID, dateOut: carBookingData.dateOut, dateIn: carBookingData.dateIn }, function (err, result) {
+        if (err || !result) {
+            res.status(403);
+            res.json({ msg: 'error' });
+        }else {
+            res.json({ data: carBookingData });
+        }
+    });
+});
+
 router.get('/getCarBookings', (req, res) => {
     carBookingModel.getCarPool(req.cookies.loggedInUser, (err, bookingsData) => {
         if (err) {
