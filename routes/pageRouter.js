@@ -19,7 +19,6 @@ router.get('/admin', (req, res) => {
     res.render('admin/admin');
 });
 
-
 router.get('/publicTransportMap', (req, res) => {
     res.render('public_transport/publicTransportMap');
 });
@@ -291,9 +290,20 @@ router.get('/getReportedIssues', (req, res) => {
     });
 });
 
+router.delete('/deleteIssue', (req, res) => {
+    console.log(req.body);
+    issueReportModel.deleteOne({_id: req.body.issueId}, (err, issueData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: issueData });
+        }
+    });
+});
+
 router.get('/logout', (req, res) => {
     res.clearCookie('loggedInUser');
-    res.send();
+    res.render('account/login');
 });
 
 module.exports = router; 

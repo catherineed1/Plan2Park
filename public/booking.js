@@ -127,8 +127,9 @@ jQuery(function () {
                  $(location).attr('href','/login');
              },
              error: function (response) {
-                 console.log('server error occured ', response);
-             }
+                $(location).attr('href', '/login');
+                console.log('server error occurred ', response);
+            }
          });
      });
 });

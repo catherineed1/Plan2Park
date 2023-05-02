@@ -45,8 +45,8 @@ jQuery(function () {
                         console.log(value);
                         var driverID = json.data[index].userID;
                         var carPoolID = json.data[index]._id;
-                        console.log(carPoolID);
                         var location = json.data[index].pickupLoc;
+                        console.log(location);
                         var vehicle = json.data[index].vehicle;
                         var passengers = json.data[index].noOfPassenegers;
                         var dateIn = json.data[index].dateIn;
@@ -66,7 +66,7 @@ jQuery(function () {
                                     dataType: 'json',
                                     success: function (response) {
                                         console.log(response);
-                                        if (response.data == passengers){
+                                        if (response.data == passengers) {
                                             $('tbody').append('<tr><td scope="row">' + driver + '</td>\
                                             <td>'+ location + '</td>\
                                             <td>'+ vehicle + '</td>\
@@ -76,7 +76,7 @@ jQuery(function () {
                                             <td>'+ dateOut.substring(0, 10) + '</td>\
                                             <td><button type="button" class="btn btn-secondary" disabled>Join</button>\
                                             </td></tr>');
-                                        }else{
+                                        } else {
 
                                             $('tbody').append('<tr><td scope="row">' + driver + '</td>\
                                             <td>'+ location + '</td>\
@@ -87,7 +87,7 @@ jQuery(function () {
                                             <td>'+ dateOut.substring(0, 10) + '</td>\
                                             <td><button id="joinBtn" type="button" class="btn btn-primary" data-mycarpoolID='+ carPoolID + '>Join</button>\
                                             </td></tr>');
-                                            $("#joinBtn[data-mycarpoolID='"+carPoolID+"']").on('click', function () {
+                                            $("#joinBtn[data-mycarpoolID='" + carPoolID + "']").on('click', function () {
                                                 var CID = $('#joinBtn').attr('data-mycarpoolID');
                                                 $.ajax({
                                                     data: { userID: userID, bookingID: CID },
@@ -97,20 +97,20 @@ jQuery(function () {
                                                     success: function (response) {
                                                         console.log(response);
                                                         alert('you joined this carpool!');
-                                                        $("#joinBtn[data-mycarpoolID='"+carPoolID+"']").prop('disabled', true);
+                                                        $("#joinBtn[data-mycarpoolID='" + carPoolID + "']").prop('disabled', true);
                                                         window.location.reload();
                                                     },
                                                     error: function (response) {
                                                         console.log('server error occured ', response);
                                                     }
                                                 });
-                                            
+
                                             });
                                         }
-                                        
+
                                     }
                                 });
-                               
+
                             }
                         });
                     });
@@ -130,7 +130,8 @@ jQuery(function () {
                 $(location).attr('href', '/login');
             },
             error: function (response) {
-                console.log('server error occured ', response);
+                $(location).attr('href', '/login');
+                console.log('server error occurred ', response);
             }
         });
     });
