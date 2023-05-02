@@ -1,5 +1,7 @@
 jQuery(function () {
     var userID;
+    var checked;
+    var userEmail;
 
     $('#carpool').hide();
 
@@ -10,6 +12,7 @@ jQuery(function () {
         xhrFields: { withCredentials: true },
         success: function (response) {
             userID = response.data._id;
+            userEmail = response.data.username;
         }
     });
 
@@ -58,11 +61,20 @@ jQuery(function () {
     });
 
     $('#car-register-submit').on('click', function () {
+
+        if($('#carpool-check').prop('checked')==true){
+            checked = 'yes';
+        }
+        else{
+            checked= 'no';
+        }
+
         const formData = {
             spaceID: $("#spaceNo").html(),
             userID: userID,
             pickupLoc: $("#chooseLocation").val(),
             vehicle: $("#chooseVehicle").val(),
+            carpoolYN: checked,
             noOfPassenegers: $("#inputPassenegers").val(),
             dateOut: $("#DateTimeOut").val(),
             dateIn: $("#DateTimeReturn").val(),
@@ -92,7 +104,7 @@ jQuery(function () {
     $('#sendIssue').on('click', function () {
         const issueData = {
             spaceNum: $("#spaceNum").val(),
-            userID: userID,
+            userEmail: userEmail,
             issue: $("#issueDetails").val()
         };
         $.ajax({
@@ -115,8 +127,9 @@ jQuery(function () {
                  $(location).attr('href','/login');
              },
              error: function (response) {
-                 console.log('server error occured ', response);
-             }
+                $(location).attr('href', '/login');
+                console.log('server error occurred ', response);
+            }
          });
      });
 });

@@ -19,7 +19,6 @@ router.get('/admin', (req, res) => {
     res.render('admin/admin');
 });
 
-
 router.get('/publicTransportMap', (req, res) => {
     res.render('public_transport/publicTransportMap');
 });
@@ -166,6 +165,26 @@ router.get('/countCarPoolBookings', (req, res) => {
     });
 });
 
+router.get('/countUserCreditsRegister', (req, res) => {
+    carBookingModel.where({userID: req.query.userID, carpoolYN: 'yes'}).count((err, countCPData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: countCPData });
+        }
+    });
+});
+
+router.get('/countUserCreditsJoin', (req, res) => {
+    carPoolModel.where({userID:req.cookies.loggedInUser}).count((err, countCPData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: countCPData });
+        }
+    });
+});
+
 router.delete('/deleteSpaceBooking', (req, res) => {
     console.log(req.body);
     carBookingModel.deleteOne({_id: req.body.bookingId}, (err, spaceData) => {
@@ -261,9 +280,30 @@ router.post('/addIssue', (req, res) => {
     });
 });
 
+router.get('/getReportedIssues', (req, res) => {
+    issueReportModel.getReportedIssues((err, issueData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: issueData });
+        }
+    });
+});
+
+router.delete('/deleteIssue', (req, res) => {
+    console.log(req.body);
+    issueReportModel.deleteOne({_id: req.body.issueId}, (err, issueData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: issueData });
+        }
+    });
+});
+
 router.get('/logout', (req, res) => {
     res.clearCookie('loggedInUser');
-    res.send();
+    res.render('account/login');
 });
 
 module.exports = router; 

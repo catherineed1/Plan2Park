@@ -17,6 +17,9 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    carpoolYN: {
+        type: String
+    },
     noOfPassenegers: {
         type: String
     },
