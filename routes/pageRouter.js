@@ -37,25 +37,21 @@ router.get('/account', (req, res) => {
 
 router.post('/addCarBooking', (req, res) => {
     const carBookingData = new carBookingModel(req.body);
-    carBookingData.save();
-    carBookingModel.addCarPool((err, carBookingData) => {
-        if (err) {
+    carBookingModel.where({ spaceID: carBookingData.spaceID, dateArrival: carBookingData.dateArrival }).count((err, count) => {
+        if (count > 0) {
+            res.status(409);
             res.json({ msg: 'error' });
         }
         else {
-            res.json({ data: carBookingData });
-        }
-    });
-});
-
-router.post('/findBooking', (req, res) => {
-    const carBookingData = new carBookingModel(req.body);
-    carBookingModel.findOne({ spaceID: carBookingData.spaceID, dateOut: carBookingData.dateOut, dateIn: carBookingData.dateIn }, function (err, result) {
-        if (err || !result) {
-            res.status(403);
-            res.json({ msg: 'error' });
-        }else {
-            res.json({ data: carBookingData });
+            carBookingData.save();
+            carBookingModel.addCarPool((err, carBookingData) => {
+                if (err) {
+                    res.json({ msg: 'error' });
+                }
+                else {
+                    res.json({ data: carBookingData });
+                }
+            });
         }
     });
 });
@@ -89,7 +85,7 @@ router.post('/findUser', (req, res) => {
         if (err || !result) {
             res.status(403);
             res.json({ msg: 'error' });
-        }else {
+        } else {
             res.cookie('loggedInUser', result._id);
             res.json({ data: result._id });
         }
@@ -130,7 +126,7 @@ router.post('/addCar', (req, res) => {
 });
 
 router.get('/getCars', (req, res) => {
-    carModel.find({userID:req.cookies.loggedInUser}, (err, carData) => {
+    carModel.find({ userID: req.cookies.loggedInUser }, (err, carData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -150,25 +146,25 @@ router.get('/getUserBookings', (req, res) => {
 });
 
 router.get('/getCarPoolBookings', async (req, res) => {
-    var cpData = await carPoolModel.find({userID: req.cookies.loggedInUser});
-        var bookings = await Promise.all(cpData.map(async (carpool) => {
-            var bookingData = await carBookingModel.findOne({_id: carpool.bookingID});
-            var driverData = await userModel.findOne({_id: bookingData.userID});
-                return {
-                    cpID: carpool._id, 
-                    bookingID: bookingData._id,
-                    driverName: driverData.fullName,
-                    pickupLoc: bookingData.pickupLoc,
-                    vehicle: bookingData.vehicle,
-                    dateOut: bookingData.dateOut,
-                    dateIn: bookingData.dateIn
-                };
-        }));
-        res.json({data: bookings});
+    var cpData = await carPoolModel.find({ userID: req.cookies.loggedInUser });
+    var bookings = await Promise.all(cpData.map(async (carpool) => {
+        var bookingData = await carBookingModel.findOne({ _id: carpool.bookingID });
+        var driverData = await userModel.findOne({ _id: bookingData.userID });
+        return {
+            cpID: carpool._id,
+            bookingID: bookingData._id,
+            driverName: driverData.fullName,
+            pickupLoc: bookingData.pickupLoc,
+            vehicle: bookingData.vehicle,
+            dateArrival: bookingData.dateArrival,
+            dateReturn: bookingData.dateReturn
+        };
+    }));
+    res.json({ data: bookings });
 });
 
 router.get('/countCarPoolBookings', (req, res) => {
-    carPoolModel.where({bookingID: req.query.bookingID}).count((err, countData) => {
+    carPoolModel.where({ bookingID: req.query.bookingID }).count((err, countData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -178,7 +174,7 @@ router.get('/countCarPoolBookings', (req, res) => {
 });
 
 router.get('/countUserCreditsRegister', (req, res) => {
-    carBookingModel.where({userID: req.query.userID, carpoolYN: 'yes'}).count((err, countCPData) => {
+    carBookingModel.where({ userID: req.query.userID, carpoolYN: 'yes' }).count((err, countCPData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -188,7 +184,7 @@ router.get('/countUserCreditsRegister', (req, res) => {
 });
 
 router.get('/countUserCreditsJoin', (req, res) => {
-    carPoolModel.where({userID:req.cookies.loggedInUser}).count((err, countCPData) => {
+    carPoolModel.where({ userID: req.cookies.loggedInUser }).count((err, countCPData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -198,8 +194,7 @@ router.get('/countUserCreditsJoin', (req, res) => {
 });
 
 router.delete('/deleteSpaceBooking', (req, res) => {
-    console.log(req.body);
-    carBookingModel.deleteOne({_id: req.body.bookingId}, (err, spaceData) => {
+    carBookingModel.deleteOne({ _id: req.body.bookingId }, (err, spaceData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -209,8 +204,7 @@ router.delete('/deleteSpaceBooking', (req, res) => {
 });
 
 router.delete('/deleteCarPoolBooking', (req, res) => {
-    console.log(req.body);
-    carPoolModel.deleteOne({_id: req.body.carpoolBookingId}, (err, CpData) => {
+    carPoolModel.deleteOne({ _id: req.body.carpoolBookingId }, (err, CpData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -220,8 +214,7 @@ router.delete('/deleteCarPoolBooking', (req, res) => {
 });
 
 router.delete('/deleteCar', (req, res) => {
-    console.log(req.body.carId);
-    carModel.deleteOne({_id: req.body.carId}, (err, carData) => {
+    carModel.deleteOne({ _id: req.body.carId }, (err, carData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -244,7 +237,17 @@ router.post('/addLocation', (req, res) => {
 });
 
 router.get('/getLocations', (req, res) => {
-    locModel.find({userID:req.cookies.loggedInUser}, (err, locData) => {
+    locModel.find({ userID: req.cookies.loggedInUser }, (err, locData) => {
+        if (err) {
+            res.json({ msg: 'error' });
+        } else {
+            res.json({ data: locData });
+        }
+    });
+});
+
+router.get('/getLocation', (req, res) => {
+    locModel.findById(req.query.locationID, (err, locData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -254,8 +257,7 @@ router.get('/getLocations', (req, res) => {
 });
 
 router.delete('/deleteLoc', (req, res) => {
-    console.log(req.body.locId);
-    locModel.deleteOne({_id: req.body.locId}, (err, locData) => {
+    locModel.deleteOne({ _id: req.body.locId }, (err, locData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
@@ -304,7 +306,7 @@ router.get('/getReportedIssues', (req, res) => {
 
 router.delete('/deleteIssue', (req, res) => {
     console.log(req.body);
-    issueReportModel.deleteOne({_id: req.body.issueId}, (err, issueData) => {
+    issueReportModel.deleteOne({ _id: req.body.issueId }, (err, issueData) => {
         if (err) {
             res.json({ msg: 'error' });
         } else {
