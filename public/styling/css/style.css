@@ -247,12 +247,20 @@ thead{
 }
 
 #map{
+
   height: 60%;
 }
 
 #floating-panel{
   font-family:Verdana, sans-serif;
   color: #4b4b4b;
+
+  height: 70%;
+}
+
+#floating-panel{
+  top: 10px;
+  left: 25%;
   border: 1px solid #999;
   text-align: center;
   line-height: 30px;

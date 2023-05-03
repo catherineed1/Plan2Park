@@ -33,6 +33,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 
 initMap();
 
+
 jQuery(function () {
     initMap();
     $('#logoutBtn').on('click', function () {
@@ -49,4 +50,5 @@ jQuery(function () {
         });
 }); 
 });
+
 
