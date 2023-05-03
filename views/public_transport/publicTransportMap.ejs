@@ -1,61 +1,60 @@
-<!doctype html>
-<html lang="en">
+<html>
+  <head>
+    <title>Plan2Park</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Plan2Park</title>
-  <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link href="/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="/styling/css/style.css">
-</head>
+    <link rel="icon" type="image/x-icon" href="/styling/images/car_logo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="/docs/4.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styling/css/style.css">
+    <script type="module" src="/publictransport.js"></script>
+  </head>
 
-<body>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="home">
-      <img src="/styling/images/plan2park1.png" width="150" height="37" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    </div>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="account">Account</a>
-      </li>
-    </ul>
-    <a href="logout">
-      <img src="/styling/images/logOut.png" id="logoutBtn"  width="30" height="30" alt="">
-    </a>
-  </nav>
-
-  <div class="content">
-    <div class="card text-center">
-      <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Active</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-        </ul>
+  <body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="home">
+        <img src="/styling/images/plan2park1.png" width="150" height="37" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
       </div>
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    </div>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="account">Account</a>
+        </li>
+      </ul>
+      <a href="logout">
+        <img src="/styling/images/logOut.png" id="logoutBtn"  width="30" height="30" alt="">
+      </a>
+    </nav>
+    <div class="content">
+    <div id="floating-panel">
 
-      <footer class="text-center text-lg-start" >
+        <div>
+          <div>
+          <input type="text" id="from" placeholder="Enter Starting Address">
+          </div>
+        </div>
+  
+        <div>
+          <div>
+          <input type="text" id="to" placeholder="Enter Destination Address">
+          </div>
+        </div>
+      
+      <b>Mode of transport</b>
+      <select id="mode">
+        <option value="CYCLING">Cycling</option>
+        <option value="WALKING">Walking</option>
+        <option value="TRANSIT">Public Transport</option>
+      </select>
+    </div>
+    <div id="map"></div>
+    </div>
+    <footer class="text-center text-lg-start" >
         <div class="container p-2 pb-0">
           <hr class="my-2">
             <div class="row d-flex align-items-center">
@@ -70,9 +69,11 @@
         </div>
         </footer>
 
-    <script src="/publictransport.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-  </body>
+    
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg", v: "weekly"});</script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
+</body>
 </html>
