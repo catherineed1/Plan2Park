@@ -2,6 +2,7 @@ jQuery(function () {
     var userID;
     var checked;
     var userEmail;
+    var addressID;
 
     $('#carpool').hide();
 
@@ -29,7 +30,7 @@ jQuery(function () {
                 $('#chooseVehicle').append($('<option></option>').html(make));
             });
         }
-     });
+    });
 
     $.ajax({
         method: 'get',
@@ -41,20 +42,21 @@ jQuery(function () {
             $.each(count, function (index, value) {
                 console.log(value);
                 var nickname = response.data[index].nickname;
-                $('#chooseLocation').append($('<option></option>').html(nickname));
+                addressID = response.data[index]._id;
+                $('#chooseLocation').append($('<option value="' + addressID + '"></option>').html(nickname)).val();
             });
         }
     });
 
     $('#carpool-check').on('click', function () {
-        if( $('#carpool-check').is(':checked') ){
+        if ($('#carpool-check').is(':checked')) {
             $('#carpool').show();
         }
-        else{
+        else {
             $('#carpool').hide();
         }
     });
-    
+
     $('rect').on('click', function () {
         var space_num = $(this).attr('id');
         $('#spaceNo').html(space_num);
@@ -62,11 +64,11 @@ jQuery(function () {
 
     $('#car-register-submit').on('click', function () {
 
-        if($('#carpool-check').prop('checked')==true){
+        if ($('#carpool-check').prop('checked') == true) {
             checked = 'yes';
         }
-        else{
-            checked= 'no';
+        else {
+            checked = 'no';
         }
 
         const formData = {
@@ -76,23 +78,27 @@ jQuery(function () {
             vehicle: $("#chooseVehicle").val(),
             carpoolYN: checked,
             noOfPassenegers: $("#inputPassenegers").val(),
-            dateOut: $("#DateTimeOut").val(),
-            dateIn: $("#DateTimeReturn").val(),
+            dateArrival: $("#DateTimeOut").val(),
+            dateReturn: $("#DateTimeReturn").val(),
         };
         console.log(formData);
 
-       $.ajax({
+        $.ajax({
             data: formData,
             method: 'post',
             url: '/addCarBooking',
             dataType: 'json',
             success: function (response) {
                 alert('Booking successful');
-                $(location).attr('href','/home');
+                $(location).attr('href', '/home');
+            },
+            error: function (response) {
+                alert('Space already booked');
+                window.location.reload();
             }
         });
     });
-    
+
     $('#openBtn').on('click', function () {
         document.getElementById("reportForm").style.display = "block";
     });
@@ -116,20 +122,20 @@ jQuery(function () {
                 document.getElementById("reportForm").style.display = "none";
             }
         });
-        
+
     });
 
     $('#logoutBtn').on('click', function () {
         $.ajax({
-             method: 'get',
-             url: '/logout',
-             success: function (response) {
-                 $(location).attr('href','/login');
-             },
-             error: function (response) {
+            method: 'get',
+            url: '/logout',
+            success: function (response) {
+                $(location).attr('href', '/login');
+            },
+            error: function (response) {
                 $(location).attr('href', '/login');
                 console.log('server error occurred ', response);
             }
-         });
-     });
+        });
+    });
 });

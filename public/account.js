@@ -39,7 +39,7 @@ jQuery(function () {
                     });
                 }
             });
-            
+
         }
     });
 
@@ -55,8 +55,9 @@ jQuery(function () {
               <tr>\
                 <th scope="col">Location</th>\
                 <th scope="col">Vehicle</th>\
-                <th scope="col">Date In</th>\
-                <th scope="col">Date Out</th>\
+                <th scope="col">Date</th>\
+                <th scope="col">Departure Time</th>\
+                <th scope="col">Arrival Time</th>\
                 <th scope="col"></th>\
               </tr>\
               </thead>\
@@ -66,34 +67,50 @@ jQuery(function () {
             $.each(count, function (index, value) {
                 console.log(value);
                 var bookingID = json.data[index]._id;
-                var location = json.data[index].pickupLoc;
+                var locationID = json.data[index].pickupLoc;
                 var vehicle = json.data[index].vehicle;
-                var dateIn = json.data[index].dateIn;
-                var dateOut = json.data[index].dateOut;
-                $('#my-bookings').append('<tr><td scope="row">' + location + '</td>\
-                <td>'+ vehicle + '</td>\
-                <td>'+ dateIn.substring(0, 10) + '</td>\
-                <td>'+ dateOut.substring(0, 10) + '</td>\
-                <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
-                </td></tr>');
-                $("#delBookingBtn[data-mybookingID='" + bookingID + "']").on('click', function () {
-                    var BID = $('#delBookingBtn').attr('data-mybookingID');
-                    console.log(BID);
-                    $.ajax({
-                        data: { bookingId: BID },
-                        method: 'delete',
-                        url: '/deleteSpaceBooking',
-                        dataType: 'json',
-                        success: function (response) {
-                            console.log(response);
-                            alert('booking deleted');
-                            window.location.reload();
-                        },
-                        error: function (response) {
-                            console.log('server error occured ', response);
-                        }
-                    });
+                var dateReturn = json.data[index].dateReturn;
+                var dateArrival = json.data[index].dateArrival;
+                $.ajax({
+                    data: { locationID: locationID },
+                    method: 'get',
+                    url: '/getLocation',
+                    dataType: 'json',
+                    xhrFields: { withCredentials: true },
+                    success: function (response) {
+                        var address = response.data.nickname;
+                        var year = dateArrival.substring(0,4);
+                        var month = dateArrival.substring(5,7);
+                        var day = dateArrival.substring(8,10);
+                        var formattedDate = (day + '-' + month + '-' + year);
+                        $('#my-bookings').append('<tr><td scope="row">' + address + '</td>\
+                        <td>'+ vehicle + '</td>\
+                        <td>'+ formattedDate + '</td>\
+                        <td>'+ dateArrival.substring(10, 16) + '</td>\
+                        <td>'+ dateReturn.substring(10, 16) + '</td>\
+                        <td><i class="fas fa-trash" type="button" id="delBookingBtn" data-mybookingID="'+ bookingID + '"></i>\
+                        </td></tr>');
+                        $("#delBookingBtn[data-mybookingID='" + bookingID + "']").on('click', function () {
+                            var BID = $('#delBookingBtn').attr('data-mybookingID');
+                            console.log(BID);
+                            $.ajax({
+                                data: { bookingId: BID },
+                                method: 'delete',
+                                url: '/deleteSpaceBooking',
+                                dataType: 'json',
+                                success: function (response) {
+                                    console.log(response);
+                                    alert('booking deleted');
+                                    window.location.reload();
+                                },
+                                error: function (response) {
+                                    console.log('server error occured ', response);
+                                }
+                            });
+                        });
+                    }
                 });
+
             });
         }
     });
@@ -111,8 +128,8 @@ jQuery(function () {
                 <th scope="col">Driver</th>\
                 <th scope="col">Location</th>\
                 <th scope="col">Vehicle</th>\
-                <th scope="col">Date In</th>\
-                <th scope="col">Date Out</th>\
+                <th scope="col">Date</th>\
+                <th scope="col">Depart Time</th>\
                 <th scope="col"></th>\
               </tr>\
               </thead>\
@@ -123,34 +140,51 @@ jQuery(function () {
                 console.log(value);
                 var CPbookingID = response.data[index].cpID;
                 var driver = response.data[index].driverName;
-                var location = response.data[index].pickupLoc;
+                var locationID = response.data[index].pickupLoc;
                 var vehicle = response.data[index].vehicle;
-                var dateIn = response.data[index].dateIn;
-                var dateOut = response.data[index].dateOut;
-                $('#my-CP-bookings').append('<tr><td scope="row">' + driver + '</td>\
-                <td>'+ location + '</td>\
-                <td>'+ vehicle + '</td>\
-                <td>'+ dateIn.substring(0, 10) + '</td>\
-                <td>'+ dateOut.substring(0, 10) + '</td>\
-                <td><i class="fas fa-trash" type="button" id="delCPBtn" data-myCPbookingID="'+ CPbookingID + '"></i>\
-                </td></tr>');
-           
-            $("#delCPBtn[data-myCPbookingID='" + CPbookingID + "']").on('click', function () {
-                var CPBID = $('#delCPBtn').attr('data-myCPbookingID');
+                var dateArrival = response.data[index].dateArrival;
                 $.ajax({
-                    data: { carpoolBookingId: CPBID },
-                    method: 'delete',
-                    url: '/deleteCarPoolBooking',
+                    data: { locationID: locationID },
+                    method: 'get',
+                    url: '/getLocation',
                     dataType: 'json',
+                    xhrFields: { withCredentials: true },
                     success: function (response) {
-                        window.location.reload();
-                    },
-                    error: function (response) {
-                        console.log('server error occured ', response);
+                        var address = response.data.street_num;
+                        var year = dateArrival.substring(0,4);
+                        var month = dateArrival.substring(5,7);
+                        var day = dateArrival.substring(8,10);
+                        var formattedDate = (day + '-' + month + '-' + year);
+
+                        $('#my-CP-bookings').append('<tr><td scope="row">' + driver + '</td>\
+                        <td>'+ address + '</td>\
+                        <td>'+ vehicle + '</td>\
+                        <td>'+ formattedDate + '</td>\
+                        <td>'+ dateArrival.substring(11, 16) + '</td>\
+                        <td><i class="fas fa-trash" type="button" id="delCPBtn" data-myCPbookingID="'+ CPbookingID + '"></i>\
+                        </td></tr>');
+
+                        $("#delCPBtn[data-myCPbookingID='" + CPbookingID + "']").on('click', function () {
+                            var CPBID = $('#delCPBtn').attr('data-myCPbookingID');
+                            $.ajax({
+                                data: { carpoolBookingId: CPBID },
+                                method: 'delete',
+                                url: '/deleteCarPoolBooking',
+                                dataType: 'json',
+                                success: function (response) {
+                                    window.location.reload();
+                                },
+                                error: function (response) {
+                                    console.log('server error occured ', response);
+                                }
+                            });
+
+                        });
                     }
+
+
                 });
             });
-          });
         }
     });
 
@@ -183,23 +217,23 @@ jQuery(function () {
                 <td>'+ registration + '</td>\
                 <td><i class="fas fa-trash" type="button" id="delCarBtn" data-carID="'+ carID + '"></i>\
                 </td></tr>');
-           
-            $("#delCarBtn[data-carID='" + carID + "']").on('click', function (e) {
-                var car_ID = $('#delCarBtn').attr('data-carID');
-                $.ajax({
-                    data: { carId: car_ID },
-                    method: 'delete',
-                    url: '/deleteCar',
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log(response);
-                        window.location.reload();
-                    },
-                    error: function (response) {
-                        console.log('server error occured ', response);
-                    }
+
+                $("#delCarBtn[data-carID='" + carID + "']").on('click', function (e) {
+                    var car_ID = $('#delCarBtn').attr('data-carID');
+                    $.ajax({
+                        data: { carId: car_ID },
+                        method: 'delete',
+                        url: '/deleteCar',
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            window.location.reload();
+                        },
+                        error: function (response) {
+                            console.log('server error occured ', response);
+                        }
+                    });
                 });
-            });
             });
         }
     });
@@ -243,7 +277,7 @@ jQuery(function () {
 
     $.ajax({
         method: 'get',
-        url: '/getLocations', 
+        url: '/getLocations',
         dataType: 'json',
         success: function (response) {
             var count = response.data;
@@ -270,23 +304,23 @@ jQuery(function () {
                 <td>'+ postcode + '</td>\
                 <td><i class="fas fa-trash" type="button" id="delLocBtn" data-locID="'+ locID + '"></i>\
                 </td></tr>');
-            
-            $("#delLocBtn[data-locID='" + locID + "']").on('click', function () {
-                var loc_ID = $('#delLocBtn').attr('data-locID');
-                $.ajax({
-                    data: { locId: loc_ID },
-                    method: 'delete',
-                    url: '/deleteLoc',
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log(response);
-                        window.location.reload();
-                    },
-                    error: function (response) {
-                        console.log('server error occured ', response);
-                    }
+
+                $("#delLocBtn[data-locID='" + locID + "']").on('click', function () {
+                    var loc_ID = $('#delLocBtn').attr('data-locID');
+                    $.ajax({
+                        data: { locId: loc_ID },
+                        method: 'delete',
+                        url: '/deleteLoc',
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            window.location.reload();
+                        },
+                        error: function (response) {
+                            console.log('server error occured ', response);
+                        }
+                    });
                 });
-            });
             });
         }
     });

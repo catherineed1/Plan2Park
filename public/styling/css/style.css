@@ -55,6 +55,7 @@ footer{
   margin: 100px auto;
   padding-bottom: 20px;
 }
+
 #loginH {
   text-align: center;
   color: #5b6574;
@@ -62,12 +63,14 @@ footer{
   padding: 20px 0 20px 0;
   border-bottom: 1px solid #dee0e4;
 }
+
 #loginForm, #createAccountForm {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding-top: 20px;
 }
+
 #loginLabel {
   display: flex;
   justify-content: center;
@@ -76,7 +79,8 @@ footer{
   height: 50px;
   color: black;
 }
-#email, #password, #fullname {
+
+#email, #password, #fullname, #from, #to {
   width: 310px;
   height: 50px;
   border: 1px solid #dee0e4;
@@ -96,6 +100,7 @@ footer{
 #spaceBooking{
   width: 120%;
 }
+
 #car-register{
   background-color: rgb(242, 244, 244);
   padding-top: 20px;
@@ -117,6 +122,7 @@ footer{
 #DateTimeOut, #DateTimeReturn{
   color: #706f6f;
 }
+
 .avatar {
   vertical-align: middle;
   width: 100px;
@@ -241,6 +247,14 @@ thead{
 }
 
 #map{
+
+  height: 60%;
+}
+
+#floating-panel{
+  font-family:Verdana, sans-serif;
+  color: #4b4b4b;
+
   height: 70%;
 }
 
