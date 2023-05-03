@@ -1,28 +1,43 @@
 {
-    "name": "ajax",
-    "version": "1.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {
-        "start": "node server",
-        "dev": "nodemon server"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "body-parser": "^1.20.2",
-        "bootstrap": "^5.2.3",
-        "bootstrap-icons": "^1.10.3",
-        "cookie-parser": "^1.4.6",
-        "ejs": "^3.1.8",
-        "express": "^4.18.2",
-        "icons": "^1.0.0",
-        "jquery": "^3.6.3",
-        "mongoose": "^6.8.3",
-        "mongoose-date-format": "^1.2.0"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.20"
-    }
+  "name": "ajax",
+  "version": "1.0.0",
+  "description": "## To start  ``` npm run dev ```",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.3.29",
+    "@googlemaps/routing": "^0.5.1",
+    "@here/maps-api-for-javascript": "^1.41.1",
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "google-maps": "^4.3.3",
+    "googlemaps": "^1.12.0",
+    "icons": "^1.0.0",
+    "jquery": "^3.6.3",
+    "mongoose": "^6.8.3",
+    "mongoose-date-format": "^1.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "nodemon": "^2.0.20",
+    "rollup": "^3.21.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catherineed1/Plan2Park.git"
+  },
+  "bugs": {
+    "url": "https://github.com/catherineed1/Plan2Park/issues"
+  },
+  "homepage": "https://github.com/catherineed1/Plan2Park#readme"
 }
