@@ -13,10 +13,10 @@ jQuery(function () {
             dataType: 'json',
             success: function (response) {
                 console.log('user added successfully');
-                alert('account created successfully');
                 $(location).attr('href','/login');
             },
             error: function (response) {
+                $(location).attr('href','/login');
                 console.log('server error occured ', response);
             }
         });
